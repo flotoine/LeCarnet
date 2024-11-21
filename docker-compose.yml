@@ -15,4 +15,10 @@ services:
       DB_CLIENT: "sqlite3"
       DB_FILENAME: "/LeCarnetDB/database/data.db"
       WEBSOCKETS_ENABLED: "true"
+      CORS_ENABLED: 'true'
+      CORS_ORIGIN: 'http://localhost:5173'
+
+      
+
+
   
