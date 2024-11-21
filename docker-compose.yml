@@ -1,0 +1,18 @@
+version: "3"
+services:
+  database:
+    image: directus/directus:11.2.1
+    ports:
+      - 8055:8055
+    volumes:
+      - ./LeCarnetDB/database:/LeCarnetDB/database
+      - ./LeCarnetDB/uploads:/LeCarnetDB/uploads
+      - ./LeCarnetDB/extensions:/LeCarnetDB/extensions
+    environment:
+      SECRET: "replace-with-secure-random-value"
+      ADMIN_EMAIL: "admin@example.com"
+      ADMIN_PASSWORD: "d1r3ctu5"
+      DB_CLIENT: "sqlite3"
+      DB_FILENAME: "/LeCarnetDB/database/data.db"
+      WEBSOCKETS_ENABLED: "true"
+  
