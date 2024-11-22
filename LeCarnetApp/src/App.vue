@@ -1,15 +1,17 @@
 <script setup>
-import Connection from './Components/Connection.vue'
+import Login from './components/Login.vue'
 
 
 </script>
 
 <template>
-
+  
   <h1>LeCarnet</h1>
-  <Connection />
+  <Login />
 </template>
 
 <style scoped>
+
+
 
 </style>
