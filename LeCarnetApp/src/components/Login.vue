@@ -1,5 +1,5 @@
 <template>
-    <nav v-if="store.user !== null">
+    <nav v-if="LoginStore.user !== null">
         <h2>Connecté.e</h2> 
         <button v-on:click="logout">Logout</button>
     </nav>
@@ -13,15 +13,16 @@
 <script setup>
 import axios from 'axios'
 import { useAuth } from '../store/auth.js'
-import { reactive } from 'vue';
+import { reactive } from 'vue'
+import { ref } from 'vue';
 
-const store = useAuth();
-let refreshToken = {};
+const LoginStore = useAuth();
 
 const formData = reactive({
     email: "",
-    password: ""
+    password: "",
 });
+
 
 async function login()
         {
@@ -29,20 +30,21 @@ async function login()
             formData
                 ).then(
                     response => {
-                        store.authenticate({
+                        LoginStore.authenticate({
                         formData
                         })
-                        refreshToken = {refresh_token : response.data.data.refresh_token}
+                        localStorage.setItem("accesstoken",response.data.data.access_token);
+                        localStorage.setItem("refreshtoken",response.data.data.refresh_token);
                     }
                 ).catch(error => {console.error(error)})       
         }
 
 async function logout()
         {
-            let response = await axios.post("http://127.0.0.1:8055/auth/logout",refreshToken
+            let response = await axios.post("http://127.0.0.1:8055/auth/logout",{refresh_token : localStorage.getItem("refreshtoken")}
 
             ).then(res => {
-                store.user = null
+                LoginStore.user = null
             }
             ).catch(err => console.error(err))
         }

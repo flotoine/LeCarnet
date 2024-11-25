@@ -13,6 +13,8 @@ export const useAuth = defineStore('auth', () => {
         password : password
     };
     };
+
+    
 return {
     user,
     authenticate,
