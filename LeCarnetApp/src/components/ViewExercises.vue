@@ -1,6 +1,7 @@
 <template>
     <h2>Vos séries</h2>
-    <div>oui : {{ result }}</div>
+    <div v-if="results===null">Chargement...</div>
+    <div v-else v-for="result in results.data.data">{{ result.title }}</div>
 </template>
 
 <script>
@@ -15,12 +16,12 @@ export default {
     
     setup () {
         let access_token = localStorage.getItem("accesstoken")
-        const result = ref(null)
+        const results = ref(null)
         axios.get("http://127.0.0.1:8055/items/exercise_unit/", { headers: {"Authorization" : `Bearer ${access_token}`} })
-        .then(data => result.value = data)
+        .then(data => results.value = data)
         .catch(err => console.error(err))
 
-        return {result}
+        return {results}
     }
 
 }
