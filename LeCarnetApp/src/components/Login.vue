@@ -91,7 +91,7 @@ const registerFormData = reactive({
 
 async function registerUser() {
     let result = await axios.post("http://127.0.0.1:8055/users/register/",registerFormData)
-    .then(res => console.log(res), CloseRegisterUserForm) // returns to classic login view
+    .then(res => console.log(res), CloseRegisterUserForm(), alert('Successfull registration ! You can process to login')) // returns to classic login view
     .catch(err => console.error(err))
 }
 
