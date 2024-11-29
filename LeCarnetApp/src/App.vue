@@ -1,6 +1,6 @@
 <script setup>
 import Login from './components/Login.vue'
-import ViewExercises from './components/ViewExercises.vue';
+import ViewExercises from './components/ViewWorkouts.vue';
 import { useAuth } from './store/auth.js'
 
 const LoginStore = useAuth();
