@@ -3,6 +3,7 @@ import Login from './components/Login.vue'
 import ViewExercises from './components/ViewWorkouts.vue';
 import WorkoutEditor from './components/WorkoutEditor.vue'
 import { useAuth } from './store/auth.js'
+import { RouterLink } from 'vue-router';
 
 const LoginStore = useAuth();
 
@@ -10,13 +11,24 @@ const LoginStore = useAuth();
 
 <template>
   <h1>LeCarnet</h1>
-  <Login />
-  <ViewExercises v-if="LoginStore.user !== null"/>
-  <WorkoutEditor v-if="LoginStore.user !== null"/>
+  <nav>
+    <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/workouts">Go to Workouts</RouterLink>
+    <RouterLink to="/add-new-workout">Add new workout</RouterLink>
+  </nav>
+  <main>
+    <RouterView />
+  </main>
+
 </template>
 
-<style scoped>
-
+<style>
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 400px;
+}
 
 
 </style>
