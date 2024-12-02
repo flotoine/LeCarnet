@@ -1,6 +1,7 @@
 <script setup>
 import Login from './components/Login.vue'
 import ViewExercises from './components/ViewWorkouts.vue';
+import WorkoutEditor from './components/WorkoutEditor.vue'
 import { useAuth } from './store/auth.js'
 
 const LoginStore = useAuth();
@@ -11,6 +12,7 @@ const LoginStore = useAuth();
   <h1>LeCarnet</h1>
   <Login />
   <ViewExercises v-if="LoginStore.user !== null"/>
+  <WorkoutEditor v-if="LoginStore.user !== null"/>
 </template>
 
 <style scoped>
