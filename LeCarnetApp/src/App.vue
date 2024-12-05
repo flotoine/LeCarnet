@@ -11,7 +11,7 @@ const LoginStore = useAuth();
 
 <template>
   <h1>LeCarnet</h1>
-  <nav>
+  <nav v-if="LoginStore.user !== null">
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/workouts">Go to Workouts</RouterLink>
     <RouterLink to="/add-new-workout">Add new workout</RouterLink>
@@ -27,7 +27,6 @@ nav {
   display: flex;
   justify-content: space-between;
   margin: auto;
-  width: 400px;
 }
 
 

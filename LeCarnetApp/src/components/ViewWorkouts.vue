@@ -1,13 +1,25 @@
 <template>
     <h2>Your workouts</h2>
-    <button v-on:click="showExercisesItems">{{showWorkoutsButton}}</button>
+    <div class="buttons-wrapper">
+        <button v-on:click="showExercisesItems">{{ showWorkoutsButton }}</button>
+        <button v-if="showEditButton" v-on:click="editModeSwitch">Edit mode</button>
+    </div>
+    <div>
+        <h3>Par date</h3>
+        <div>
+            {{  }}
+        </div>
+    </div>
     <section class="exercises-wrapper">
         <div class="exercise-unit" v-for="result in results" :key="result.id">
-            <div>Date: {{ dayjs(result.date_created).format('DD/MM/YYYY') }} --- Exercice: {{ result.exercise_name }}</div>
-            <button class="delete-button" v-on:click="deleteExercise(access_token,result.id)">delete</button>
-        </div> 
+            <div>Date: {{ dayjs(result.date_created).format('DD/MM/YYYY') }} --- Exercice: {{ result.exercise_name }}
+            </div>
+            <button v-if="editStatus" class="edit-button">edit</button>
+            <button v-if="editStatus" class="delete-button"
+                v-on:click="deleteExercise(access_token, result.id)">delete</button>
+        </div>
     </section>
-    
+
 
 </template>
 
@@ -25,44 +37,62 @@ const results = ref([])
 const exercises_names = ref([])
 
 const showWorkoutsButton = ref("Show your workouts")
-const noWorkoutJournal = ref (false)
+const noWorkoutJournal = ref(false)
+const showEditButton = ref(false)
+const editStatus = ref(false)
 
 let access_token = localStorage.getItem("accesstoken")
 
-getExercisesNames(access_token,exercises_names)
+getExercisesNames(access_token, exercises_names)
 
-function showExercisesItems () {
-    if (showWorkoutsButton.value == "Show your workouts")
-    {
-        getExercisesItems(access_token,results,exercises_names)
+function showExercisesItems() {
+    if (showWorkoutsButton.value == "Show your workouts") {
+        getExercisesItems(access_token, results, exercises_names)
         showWorkoutsButton.value = "Hide your workouts"
+        showEditButton.value = true
     } else {
         results.value = 0
         showWorkoutsButton.value = "Show your workouts"
+        showEditButton.value = false
     }
+}
+
+function editModeSwitch() {
+    if (editStatus.value === true) {
+        editStatus.value = false
+    } else { editStatus.value = true }
 }
 
 </script>
 
 <style>
+.buttons-wrapper {
+    display: flex;
+    gap: 5px
+}
+
 .exercises-wrapper {
-    margin-top:10%;
+    margin-top: 10%;
     display: flex;
     flex-direction: column-reverse;
-    gap:5px;
+    gap: 5px;
 }
 
 .exercise-unit {
     display: flex;
     justify-content: space-between;
-    background-color:#1a1a1a;
+    background-color: #1a1a1a;
     padding: 2px 10px 2px 10px;
     border-radius: 2px;
+}
+
+.edit-button {
+    background-color: #646cff;
+    padding: 5px;
 }
 
 .delete-button {
     background-color: rgb(130, 5, 5);
     padding: 5px;
 }
-
 </style>
