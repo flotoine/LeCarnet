@@ -1,36 +1,42 @@
 <template>
     <!-- Welcoming message when connected --->
     <div v-if="LoginStore.user !== null">
-        <h2 v-if="username !== null">Welcome {{ username }}</h2>
-        <button v-on:click="logout">Logout</button>
+        <h2 class="mb-4 text-xl" v-if="username !== null">Welcome {{ username }}</h2>
+        <button class="bg-slate-200 text-slate-900 p-2 rounded-xl" v-on:click="logout">Logout</button>
     </div>
     <!--- Register user form displayed when specific button clicked on -->
     <div v-else-if="create_an_account !== null">
-        <h2>Create your account</h2>
-        <form class="userform" id="registerUser" @submit="registerUser" >
-            <input class="input" type="email" id="email" name="email" placeholder="Your@email.com" v-model="registerFormData.email"
+        <h2 class="mb-4 text-xl">Create your account</h2>
+        <form class="flex flex-col gap-1 [&>*]:rounded-xl [&>*]:p-2" id="registerUser" @submit="registerUser" >
+            <label id="email" name="email">Email</label>
+            <input class="bg-slate-200" type="email" id="email" name="email" placeholder="Your@email.com" v-model="registerFormData.email"
                 required>
-            <input class="input" type="password" id="password" name="password" placeholder="YourPassword"
+            <label class="mt-4" id="password" name="password">Password</label>
+            <input class="bg-slate-200" type="password" id="password" name="password" placeholder="YourPassword"
                 v-model="registerFormData.password" required>
-            <input class="input" type="firstname" id="firstname" name="firstname" placeholder="First Name"
+            <label class="mt-4" id="firstname" name="firstname">First Name</label>
+            <input class="bg-slate-200" type="firstname" id="firstname" name="firstname" placeholder="First Name"
                 v-model="registerFormData.first_name" required>
-            <input class="input" type="lastname" id="lastname" name="lastname" placeholder="Last Name"
+            <label class="mt-4" id="lastname" name="lastname">Last Name</label>
+            <input class="bg-slate-200" type="lastname" id="lastname" name="lastname" placeholder="Last Name"
                 v-model="registerFormData.last_name" required>
-            <input class="submitButton" type="submit" value="Create an account" />
-            <button v-on:click="CloseRegisterUserForm">Back to login</button>
+            <input class="bg-slate-800 text-slate-200 my-4" type="submit" value="Create an account" />
+            <button class="bg-slate-300 text-slate-900" v-on:click="CloseRegisterUserForm">Back to login</button>
         </form>
 
     </div>
     <!-- Default login form displayed at start --->
-    <div class="userform" v-else>
-        <h2>Please login to access your workouts</h2>
-        <form class="userform" id="login" @submit="login">
-            <input class="input" type="email" id="email" name="email" placeholder="Your@email.com" v-model="loginFormData.email"
+    <div v-else>
+        <h2 class="mb-6 text-xl">Please login to access your workouts</h2>
+        <form class="flex flex-col gap-1 [&>*]:rounded-xl [&>*]:p-2" id="login" @submit="login">
+            <label id="email" name="email">Email</label>
+            <input class="bg-slate-200" type="email" id="email" name="email" placeholder="Your@email.com" v-model="loginFormData.email"
                 required>
-            <input class="input" type="password" id="password" name="password" placeholder="YourPassword"
+            <label class="mt-4" id="password" name="password">Password</label>
+            <input class="bg-slate-200" type="password" id="password" name="password" placeholder="YourPassword"
                 v-model="loginFormData.password" required>
-            <input class="submitButton" type="submit" value="Connect" />
-            <button v-on:click="OpenRegisterUserForm">Create an account</button>
+            <input class="bg-slate-800 text-slate-200 my-4" type="submit" value="Connect" />
+            <button class="bg-slate-300 text-slate-900" v-on:click="OpenRegisterUserForm">Create an account</button>
         </form>
     </div>
 </template>
@@ -126,6 +132,8 @@ async function logout() {
 
 
 <style>
+
+/*
 .userform {
     display: flex;
     flex-direction: column;
@@ -152,4 +160,5 @@ async function logout() {
 .submitButton:focus-visible, .input:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
 }
+*/
 </style>

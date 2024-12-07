@@ -66,6 +66,8 @@ function editModeSwitch() {
 </script>
 
 <style>
+
+/*
 .buttons-wrapper {
     display: flex;
     gap: 5px
@@ -95,4 +97,5 @@ function editModeSwitch() {
     background-color: rgb(130, 5, 5);
     padding: 5px;
 }
+    */
 </style>

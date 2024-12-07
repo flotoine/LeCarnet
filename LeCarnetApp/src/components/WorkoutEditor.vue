@@ -53,6 +53,8 @@
 </script>
 
 <style>
+
+/*
 .exercise-selector {
     display: flex;
     flex-direction: column;
@@ -75,6 +77,6 @@
     justify-content: center;
     gap: 2px;
 }
-
+*/
 
 </style>
