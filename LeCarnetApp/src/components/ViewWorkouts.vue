@@ -1,21 +1,19 @@
 <template>
-    <h2>Your workouts</h2>
-    <div class="buttons-wrapper">
+    <h2 class="text-2xl mb-4">Your workouts</h2>
+    <div class="*:bg-slate-200 *:rounded-lg *:p-2 flex gap-2 mb-4" >
         <button v-on:click="showExercisesItems">{{ showWorkoutsButton }}</button>
         <button v-if="showEditButton" v-on:click="editModeSwitch">Edit mode</button>
     </div>
     <div>
-        <h3>Par date</h3>
-        <div>
-            {{  }}
-        </div>
+        <h3 class="text-xl mb-4">Par date</h3>
+        
     </div>
-    <section class="exercises-wrapper">
-        <div class="exercise-unit" v-for="result in results" :key="result.id">
-            <div>Date: {{ dayjs(result.date_created).format('DD/MM/YYYY') }} --- Exercice: {{ result.exercise_name }}
+    <section >
+        <div  v-for="result in results" :key="result.id">
+            <div>{{ dayjs(result.date_created).format('DD/MM/YYYY') }} --- Exercice: {{ result.exercise_name }}
             </div>
-            <button v-if="editStatus" class="edit-button">edit</button>
-            <button v-if="editStatus" class="delete-button"
+            <button v-if="editStatus" >edit</button>
+            <button v-if="editStatus" 
                 v-on:click="deleteExercise(access_token, result.id)">delete</button>
         </div>
     </section>

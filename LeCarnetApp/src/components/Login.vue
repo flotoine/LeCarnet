@@ -89,6 +89,8 @@ async function login(e) {
 
 const username = ref("username")  /// defines name in welcoming message // Called after successfull login
 
+if( LoginStore.user !== null ) { getUser()}
+
 async function getUser() {
     let result = await axios.get("http://127.0.0.1:8055/users/me", { headers: { "Authorization": `Bearer ${localStorage.getItem("accesstoken")}` } })
         .then(res => username.value = res.data.data.first_name//username.value = res.data.data.first_name)

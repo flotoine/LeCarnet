@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+#app {
+  height:100dvh;
+  display :flex;
+  flex-direction: column;
 
-
+}
 /*
 :root {
   color-scheme: light dark;
