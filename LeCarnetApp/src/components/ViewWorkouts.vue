@@ -1,21 +1,25 @@
 <template>
-    <h2 class="text-2xl mb-4">Your workouts</h2>
-    <div class="*:bg-slate-200 *:rounded-lg *:p-2 flex gap-2 mb-4" >
+    <h2 class="text-2xl mb-4">Your training journal</h2>
+    <div class="*:bg-slate-200 *:rounded-lg *:p-2 flex gap-2 mb-4">
         <button v-on:click="showExercisesItems">{{ workoutDisplayButton }}</button>
         <button v-if="showEditButton" v-on:click="editModeSwitch">Edit mode</button>
     </div>
-    <div>
-        <h3 class="text-xl mb-4">Par date</h3>
-        
-    </div>
-    <section >
-        <div  v-for="result in results" :key="result.id">
-            <div>{{ dayjs(result.date_created).format('DD/MM/YYYY') }} --- Exercice: {{ result.exercise_name }}
+    <section>
+        <div v-for="date in items_dates" :key="date">
+            <h4 class=" text-lg mb-4">{{ date }}</h4>
+            <div v-for="result in results" :key="result.id">
+                <li v-if="date === result.date" class="flex justify-between">
+                    {{ result.exercise_name }}
+                    <div class="flex gap-2">
+                        <button v-if="editStatus">edit</button>
+                        <button v-if="editStatus" v-on:click="deleteButtonHandler(result.id)">delete</button>
+                    </div>
+
+                </li>
             </div>
-            <button v-if="editStatus" >edit</button>
-            <button v-if="editStatus" 
-                v-on:click="deleteExercise(access_token, result.id)">delete</button>
         </div>
+
+
     </section>
 
 
@@ -30,6 +34,7 @@ import getExercisesNames from './ViewExercises/getExercisesNames/index.js'
 import getExercisesItems from './ViewExercises/getExercisesItems/index.js'
 import deleteExercise from './WorkoutEditor/DeleteExercise/index.js'
 import dayjs from 'dayjs';
+import { items_dates } from '../store/itemsDatesStore.js'
 
 let access_token = localStorage.getItem("accesstoken") /// gets user token in LS
 
@@ -40,6 +45,8 @@ const showEditButton = ref(false)
 
 const results = ref([]) /// array to receive exercises saved by user
 const exercises_names = ref([])  /// array to receive all exercises possible (defined thru DB)
+
+
 
 getExercisesNames(access_token, exercises_names) /// gets all exercises possibles
 
@@ -57,6 +64,13 @@ function showExercisesItems() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+async function deleteButtonHandler (exercise_to_delete_id) {
+    await deleteExercise(access_token, exercise_to_delete_id)
+    await getExercisesItems(access_token, results, exercises_names)
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 const editStatus = ref(false)
 
 function editModeSwitch() {
@@ -67,6 +81,4 @@ function editModeSwitch() {
 
 </script>
 
-<style>
-
-</style>
+<style></style>

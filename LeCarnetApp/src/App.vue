@@ -33,7 +33,7 @@ function toggleDrawer () {
     <MenuDrawer v-on:click="toggleDrawer"/>
     <RouterView />
   </main>
-  <footer class= "fixed bottom-0 z-0 min-w-full bg-slate-50">
+  <footer class= "bottom-0 z-0 min-w-full bg-slate-50">
     <h3 class="font-title text-center">LeCarnet - Florian Antoine</h3>
   </footer>
 
