@@ -6,11 +6,11 @@
             <button class="bg-slate-200 text-slate-900 p-2 rounded-xl" v-on:click="logout">Logout</button>
         </div>
         <div class="flex *:bg-slate-200 *:rounded-xl *:aspect-square *:grow *:flex *:flex-col *:place-items-center *:justify-between gap-2 *:p-2">
-            <RouterLink to="/workouts">
+            <RouterLink to="/add-new-workout">
                 <p class="text-5xl relative top-5">+</p>
                 <p>add new exercise</p>
             </RouterLink>
-            <RouterLink to="/add-new-workout">
+            <RouterLink to="/workouts">
                 <p class="text-5xl relative top-5">?</p>
                 <p>Open your journal</p>
             </RouterLink>

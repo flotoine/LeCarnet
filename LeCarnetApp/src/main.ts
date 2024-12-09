@@ -5,8 +5,11 @@ import './style.css'
 import App from './App.vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
+// @ts-ignore
 import Home from './components/Home.vue'
+// @ts-ignore
 import ViewWorkouts from './components/ViewWorkouts.vue'
+// @ts-ignore
 import WorkoutEditor from './components/WorkoutEditor.vue'
 
 const routes = [

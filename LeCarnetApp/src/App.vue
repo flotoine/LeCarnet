@@ -8,6 +8,7 @@ import { useAuth } from './store/auth.js'
 import MenuDrawer from './components/MenuDrawer.vue';
 import { isDrawerOpen } from './store/menuDrawerStore.js'
 import Menubars from './assets/menubars.svg'
+import { RouterLink } from 'vue-router';
 
 
 const LoginStore = useAuth();
@@ -25,7 +26,7 @@ function toggleDrawer () {
 
 <template>
   <header class="flex justify-between items-center px-5 bg-slate-50">
-      <h1 class="text-5xl font-title text-slate-900 my-10">LeCarnet</h1>
+      <h1 class="text-5xl font-title text-slate-900 my-10"><RouterLink to="/">LeCarnet</RouterLink></h1>
       <button v-if="LoginStore.user !== null" v-on:click="toggleDrawer" class="w-[30px] h-[30px] relative right-3 bottom-1"><Menubars /></button>
   </header>
   <main class= "bg-slate-50 grow px-5">
