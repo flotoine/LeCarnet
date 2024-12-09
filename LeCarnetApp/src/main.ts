@@ -5,12 +5,12 @@ import './style.css'
 import App from './App.vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
-import Login from './components/Login.vue'
+import Home from './components/Home.vue'
 import ViewWorkouts from './components/ViewWorkouts.vue'
 import WorkoutEditor from './components/WorkoutEditor.vue'
 
 const routes = [
-  { path: '/', component: Login },
+  { path: '/', component: Home },
   { path: '/workouts', component: ViewWorkouts },
   { path: '/add-new-workout', component: WorkoutEditor }
 ]

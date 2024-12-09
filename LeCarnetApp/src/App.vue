@@ -1,5 +1,5 @@
 <script setup>
-import Login from './components/Login.vue'
+import Login from './components/Home.vue'
 import ViewExercises from './components/ViewWorkouts.vue';
 import WorkoutEditor from './components/WorkoutEditor.vue'
 import { ref } from 'vue';
@@ -24,11 +24,11 @@ function toggleDrawer () {
 </script>
 
 <template>
-  <header class="flex justify-between items-center mx-5 bg-slate-50">
+  <header class="flex justify-between items-center px-5 bg-slate-50">
       <h1 class="text-5xl font-title text-slate-900 my-10">LeCarnet</h1>
       <button v-if="LoginStore.user !== null" v-on:click="toggleDrawer" class="w-[30px] h-[30px] relative right-3 bottom-1"><Menubars /></button>
   </header>
-  <main class= "bg-slate-50 grow mx-5">
+  <main class= "bg-slate-50 grow px-5">
     <MenuDrawer v-on:click="toggleDrawer"/>
     <RouterView/>
   </main>

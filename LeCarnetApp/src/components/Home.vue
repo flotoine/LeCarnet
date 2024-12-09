@@ -1,8 +1,21 @@
 <template>
     <!-- Welcoming message when connected --->
     <div v-if="LoginStore.user !== null">
-        <h2 class="mb-4 text-xl" v-if="username !== null">Welcome {{ username }}</h2>
-        <button class="bg-slate-200 text-slate-900 p-2 rounded-xl" v-on:click="logout">Logout</button>
+        <div class="flex  place-content-between items-center mb-6">
+            <h2 class="text-xl" v-if="username !== null">Welcome {{ username }}</h2>
+            <button class="bg-slate-200 text-slate-900 p-2 rounded-xl" v-on:click="logout">Logout</button>
+        </div>
+        <div class="flex *:bg-slate-200 *:rounded-xl *:aspect-square *:grow *:flex *:flex-col *:place-items-center *:justify-between gap-2 *:p-2">
+            <RouterLink to="/workouts">
+                <p class="text-5xl relative top-5">+</p>
+                <p>add new exercise</p>
+            </RouterLink>
+            <RouterLink to="/add-new-workout">
+                <p class="text-5xl relative top-5">?</p>
+                <p>Open your journal</p>
+            </RouterLink>
+        </div>
+        
     </div>
     <!--- Register user form displayed when specific button clicked on -->
     <div v-else-if="create_an_account !== null">
@@ -46,7 +59,7 @@ import axios from 'axios'
 import { useAuth } from '../store/auth.js'
 import { reactive } from 'vue'
 import { ref } from 'vue';
-
+import { RouterLink } from 'vue-router';
 
 /////////////////////////////////////////////////////////
 
