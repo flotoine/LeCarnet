@@ -22,22 +22,26 @@
 
     let access_token = localStorage.getItem("accesstoken")
     
-    const muscles_targeted = ref([]) 
-    const exercises_names = ref([])
-    const exercises_selected = ref([])
-  
-    
-    getMusclesTargeted(access_token,muscles_targeted)  /// gets all muscle groups possible from DB
-    getExercisesNames(access_token,exercises_names)     /// gets all exercises possible from DB
+    ////////////////////////
 
-   
+    const muscles_targeted = ref([]) /// array to received all muscle groups from DB
+    getMusclesTargeted(access_token,muscles_targeted)  /// gets all muscle groups possible from DB
+
+    ////////////////////////
+
+    const exercises_names = ref([]) /// array to received all exercises from DB
+    getExercisesNames(access_token,exercises_names)     /// gets all exercises possible from DB
+    
+    ////////////////////////
+    
+    const exercises_selected = ref([]) /// array to received all exercises that match selected muscle group 
 
     function selectMuscleGroup (muscleid) {
               /// changes muscle targeted when specific button clicked
         exercises_selected.value = exercises_names.value.filter((ex) => ex.muscle_target === muscleid);
     }
 
-    function selectExercise (exerciseid) {
+    function selectExercise (exerciseid) { /// on click on specific exercise, adds it to user list of exercise thru DB
         addExercise(access_token,exerciseid)
         exercises_selected.value=[]
     }

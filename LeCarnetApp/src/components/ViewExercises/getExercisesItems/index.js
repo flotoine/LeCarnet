@@ -9,9 +9,10 @@ export default async function getExerciseItems(access_token,results,exercises_na
     for (let i = 0; i < results.value.length;i++) {
         let exercise_type = results.value[i].exercise_type
         results.value[i].exercise_name = exercises_names.value[exercise_type-1].exercise_name // get the name related to the id
-        /// a voir si on conserve en dessous
+        /// a voir si on conserve en dessous -- pour futur classement par date
         let date = dayjs(results.value[i].date_created).format('DD/MM/YYYY')
         results.value[i].date = date
+        console.log(date)
     }
 
 

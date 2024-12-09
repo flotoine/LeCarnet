@@ -1,5 +1,5 @@
 <template>
-    <!-- Welcoming message when connected --->
+    <!-- View if user in LoginStore -- Beware if token key not refreshed --->
     <div v-if="LoginStore.user !== null">
         <div class="flex  place-content-between items-center mb-6">
             <h2 class="text-xl" v-if="username !== null">Welcome {{ username }}</h2>
@@ -17,8 +17,8 @@
         </div>
         
     </div>
-    <!--- Register user form displayed when specific button clicked on -->
-    <div v-else-if="create_an_account !== null">
+    <!--- Register user form displayed when sign-in button clicked on -->
+    <div v-else-if="showSignInForm === true">
         <h2 class="mb-4 text-xl">Create your account</h2>
         <form class="flex flex-col gap-1 [&>*]:rounded-xl [&>*]:p-2" id="registerUser" @submit="registerUser" >
             <label id="email" name="email">Email</label>
@@ -63,17 +63,21 @@ import { RouterLink } from 'vue-router';
 
 /////////////////////////////////////////////////////////
 
-const create_an_account = ref(null); // create an account form visibility status
+// Sign in form Display 
+
+const showSignInForm = ref(false); 
 
 function OpenRegisterUserForm() {
-    create_an_account.value = true
+    showSignInForm.value = true
 }
 
 function CloseRegisterUserForm() {
-    create_an_account.value = null
+    showSignInForm.value = false
 }
 
 /////////////////////////////////////////////////////////
+
+// Log in function
 
 const LoginStore = useAuth();
 
@@ -95,7 +99,7 @@ async function login(e) {
             localStorage.setItem("refreshtoken", response.data.data.refresh_token);
             getUser()
         }
-    ).catch(error => { console.error(error) })
+    ).catch(error => { console.error(error), alert('Wrong credentials. Please check email and password') })
 }
 
 /////////////////////////////////////////////////////////
@@ -112,6 +116,8 @@ async function getUser() {
 }
 
 /////////////////////////////////////////////////////////
+
+/// Sign in function. Saves user in DB
 
 const registerFormData = reactive({
     email: "",
@@ -132,11 +138,16 @@ async function registerUser(e) {
 
 /////////////////////////////////////////////////////////
 
+/// Logout function and empty LoginStore to adapt app view
+
+import { isDrawerOpen } from '../store/menuDrawerStore.js'
+
 async function logout() {
     let response = await axios.post("http://127.0.0.1:8055/auth/logout", { refresh_token: localStorage.getItem("refreshtoken") }
 
     ).then(res => {
         LoginStore.user = null
+        if (isDrawerOpen.value === true ) {isDrawerOpen.value = false} // close drawer if open during logout
     }
     ).catch(err => console.error(err))
 }
@@ -148,32 +159,4 @@ async function logout() {
 
 <style>
 
-/*
-.userform {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.submitButton, .input {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-}
-
-.submitButton:hover, .input:hover {
-    border-color: #646cff;
-}
-
-.submitButton:focus, .input:focus,
-.submitButton:focus-visible, .input:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-}
-*/
 </style>

@@ -1,7 +1,7 @@
 <template>
     <h2 class="text-2xl mb-4">Your workouts</h2>
     <div class="*:bg-slate-200 *:rounded-lg *:p-2 flex gap-2 mb-4" >
-        <button v-on:click="showExercisesItems">{{ showWorkoutsButton }}</button>
+        <button v-on:click="showExercisesItems">{{ workoutDisplayButton }}</button>
         <button v-if="showEditButton" v-on:click="editModeSwitch">Edit mode</button>
     </div>
     <div>
@@ -31,29 +31,33 @@ import getExercisesItems from './ViewExercises/getExercisesItems/index.js'
 import deleteExercise from './WorkoutEditor/DeleteExercise/index.js'
 import dayjs from 'dayjs';
 
-const results = ref([])
-const exercises_names = ref([])
+let access_token = localStorage.getItem("accesstoken") /// gets user token in LS
 
-const showWorkoutsButton = ref("Show your workouts")
-const noWorkoutJournal = ref(false)
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+const workoutDisplayButton = ref("Show your workouts")
 const showEditButton = ref(false)
-const editStatus = ref(false)
 
-let access_token = localStorage.getItem("accesstoken")
+const results = ref([]) /// array to receive exercises saved by user
+const exercises_names = ref([])  /// array to receive all exercises possible (defined thru DB)
 
-getExercisesNames(access_token, exercises_names)
+getExercisesNames(access_token, exercises_names) /// gets all exercises possibles
 
 function showExercisesItems() {
-    if (showWorkoutsButton.value == "Show your workouts") {
-        getExercisesItems(access_token, results, exercises_names)
-        showWorkoutsButton.value = "Hide your workouts"
-        showEditButton.value = true
-    } else {
-        results.value = 0
-        showWorkoutsButton.value = "Show your workouts"
-        showEditButton.value = false
+    if (workoutDisplayButton.value == "Show your workouts") {   /// if user has clicked on Show WO button
+        getExercisesItems(access_token, results, exercises_names)  /// Gets all exercises. Compare exercise id to exercises_names to print names instead of IDs
+        workoutDisplayButton.value = "Hide your workouts"  // Change button content
+        showEditButton.value = true /// Show edit button
+    } else { /// if user has clicked on Hide WO button
+        results.value = 0   ///empty results array (allows data refresh if reclicked after)
+        workoutDisplayButton.value = "Show your workouts"  /// Change button content
+        showEditButton.value = false /// Hide edit button
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+const editStatus = ref(false)
 
 function editModeSwitch() {
     if (editStatus.value === true) {
@@ -65,35 +69,4 @@ function editModeSwitch() {
 
 <style>
 
-/*
-.buttons-wrapper {
-    display: flex;
-    gap: 5px
-}
-
-.exercises-wrapper {
-    margin-top: 10%;
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 5px;
-}
-
-.exercise-unit {
-    display: flex;
-    justify-content: space-between;
-    background-color: #1a1a1a;
-    padding: 2px 10px 2px 10px;
-    border-radius: 2px;
-}
-
-.edit-button {
-    background-color: #646cff;
-    padding: 5px;
-}
-
-.delete-button {
-    background-color: rgb(130, 5, 5);
-    padding: 5px;
-}
-    */
 </style>

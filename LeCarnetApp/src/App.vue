@@ -11,7 +11,7 @@ import Menubars from './assets/menubars.svg'
 import { RouterLink } from 'vue-router';
 
 
-const LoginStore = useAuth();
+const LoginStore = useAuth(); /// Stores user information
 
 function toggleDrawer () {
   if (isDrawerOpen.value == false) {
@@ -31,7 +31,7 @@ function toggleDrawer () {
   </header>
   <main class= "bg-slate-50 grow px-5">
     <MenuDrawer v-on:click="toggleDrawer"/>
-    <RouterView/>
+    <RouterView />
   </main>
   <footer class= "fixed bottom-0 z-0 min-w-full bg-slate-50">
     <h3 class="font-title text-center">LeCarnet - Florian Antoine</h3>
