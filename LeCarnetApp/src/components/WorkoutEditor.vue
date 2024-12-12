@@ -2,11 +2,11 @@
     <h2 class="text-2xl mb-4">Workout Editor</h2>
     <h3 class="text-xl mb-4"> Select muscle group </h3>
     
-    <div class="*:bg-slate-200 *:rounded-lg *:p-2 flex flex-wrap *:grow gap-2">
+    <div class="*:bg-slate-200 dark:*:bg-slate-800 *:rounded-lg *:p-2 flex flex-wrap *:grow gap-2">
         <button v-for="muscle in muscles_targeted" :key="muscle.id" v-on:click="selectMuscleGroup(muscle.id)"> {{ muscle.muscle_type }}</button>
     </div>
     <h3 v-if="exercises_selected.length !== 0" class="text-xl my-4">Select your exercise</h3>
-    <div class="*:bg-slate-200 *:rounded-lg *:p-2 flex flex-wrap *:grow gap-2">
+    <div class="*:bg-slate-200 dark:*:bg-slate-800 *:rounded-lg *:p-2 flex flex-wrap *:grow gap-2">
         <button v-for="exercise in exercises_selected" :key="exercise.id" v-on:click="selectExercise(exercise.id)">
             {{ exercise.exercise_name }}
         </button>

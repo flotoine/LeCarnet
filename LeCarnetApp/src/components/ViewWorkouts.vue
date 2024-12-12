@@ -1,6 +1,6 @@
 <template>
     <h2 class="text-2xl mb-4">Your training journal</h2>
-    <div class="*:bg-slate-200 *:rounded-lg *:p-2 flex gap-2 mb-4">
+    <div class="*:bg-slate-200 dark:*:bg-slate-800 *:rounded-lg *:p-2 flex gap-2 mb-4">
         <button v-on:click="showExercisesItems">{{ workoutDisplayButton }}</button>
         <button v-if="showEditButton" v-on:click="editModeSwitch">Edit mode</button>
     </div>

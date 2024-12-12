@@ -3,9 +3,9 @@
     <div v-if="LoginStore.user !== null">
         <div class="flex  place-content-between items-center mb-6">
             <h2 class="text-xl" v-if="username !== null">Welcome {{ username }}</h2>
-            <button class="bg-slate-200 text-slate-900 p-2 rounded-xl" v-on:click="logout">Logout</button>
+            <button class="bg-slate-200 text-slate-900 p-2 rounded-xl dark:bg-slate-800 dark:text-slate-50" v-on:click="logout">Logout</button>
         </div>
-        <div class="flex *:bg-slate-200 *:rounded-xl *:aspect-square *:grow *:flex *:flex-col *:place-items-center *:justify-between gap-2 *:p-2">
+        <div class="flex *:bg-slate-200 dark:*:bg-slate-800 dark:*:text-slate-200 *:rounded-xl *:aspect-square *:grow *:flex *:flex-col *:place-items-center *:justify-between gap-2 *:p-2">
             <RouterLink to="/add-new-workout">
                 <p class="text-5xl relative top-5">+</p>
                 <p>add new exercise</p>
