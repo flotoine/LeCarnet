@@ -1,18 +1,25 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { isDrawerOpen } from '../store/index.ts'
 import { watch } from 'vue';
-import { useAuth } from '../store/auth.js'
+
 
 /// Watch global ref status update to change menu drawer class to open/close it
 
 watch( isDrawerOpen, (drawerStatus)=> {
+    const menudrawer: HTMLElement | null = document.getElementById('menu-drawer');
     if (drawerStatus === true) {
-        try{document.getElementById("menu-drawer").classList.remove('menu-drawer-closed')}
-        finally{document.getElementById("menu-drawer").classList.add('menu-drawer-open')}
+        //@ts-expect-error
+        try{menudrawer.classList.remove('menu-drawer-closed')}
+        catch{console.error("No menu drawer found")}
+        //@ts-expect-error
+        finally{menudrawer.classList.add('menu-drawer-open')}
     } else {
-        try{document.getElementById("menu-drawer").classList.remove('menu-drawer-open')}
-        finally{document.getElementById("menu-drawer").classList.add('menu-drawer-closed')}
+        //@ts-expect-error
+        try{menudrawer.classList.remove('menu-drawer-open')}
+        catch{console.error("No menu drawer found")}
+        //@ts-expect-error
+        finally{menudrawer.classList.add('menu-drawer-closed')}
     }
 })
 

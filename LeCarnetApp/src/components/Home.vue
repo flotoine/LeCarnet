@@ -54,8 +54,9 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import axios from 'axios'
+//@ts-ignore
 import { useAuth } from '../store/auth.js'
 import { reactive } from 'vue'
 import { ref } from 'vue';
@@ -86,9 +87,9 @@ const loginFormData = reactive({
     password: "",
 });
 
-async function login(e) {
+async function login(e:Event) {
     e.preventDefault();
-    let result = await axios.post("http://127.0.0.1:8055/auth/login/",
+    await axios.post("http://127.0.0.1:8055/auth/login/",
         loginFormData
     ).then(
         response => {
@@ -100,6 +101,7 @@ async function login(e) {
             getUser()
         }
     ).catch(error => { console.error(error), alert('Wrong credentials. Please check email and password') })
+    
 }
 
 /////////////////////////////////////////////////////////
@@ -109,7 +111,7 @@ const username = ref("username")  /// defines name in welcoming message // Calle
 if( LoginStore.user !== null ) { getUser()}
 
 async function getUser() {
-    let result = await axios.get("http://127.0.0.1:8055/users/me", { headers: { "Authorization": `Bearer ${localStorage.getItem("accesstoken")}` } })
+    await axios.get("http://127.0.0.1:8055/users/me", { headers: { "Authorization": `Bearer ${localStorage.getItem("accesstoken")}` } })
         .then(res => username.value = res.data.data.first_name//username.value = res.data.data.first_name)
         ).catch(error => { console.error(error) })
     return { username }
@@ -126,11 +128,11 @@ const registerFormData = reactive({
     last_name: ""
 })
 
-async function registerUser(e) {
+async function registerUser(e:Event) {
 
     e.preventDefault();
-    let result = await axios.post("http://127.0.0.1:8055/users/register/", registerFormData)
-        .then(res => console.log(res), CloseRegisterUserForm(), alert('Successfull registration ! You can process to login')) // returns to classic login view
+    await axios.post("http://127.0.0.1:8055/users/register/", registerFormData)
+        .then(res => {console.log(res), CloseRegisterUserForm(), alert('Successfull registration ! You can process to login')}) // returns to classic login view
         .catch(err => console.error(err))
 
 }
@@ -143,10 +145,11 @@ async function registerUser(e) {
 import { isDrawerOpen } from '../store/index.ts'
 
 async function logout() {
-    let response = await axios.post("http://127.0.0.1:8055/auth/logout", { refresh_token: localStorage.getItem("refreshtoken") }
+    await axios.post("http://127.0.0.1:8055/auth/logout", { refresh_token: localStorage.getItem("refreshtoken") }
 
     ).then(res => {
-        LoginStore.user = null
+        console.log(res);
+        LoginStore.user = null;
         if (isDrawerOpen.value === true ) {isDrawerOpen.value = false} // close drawer if open during logout
     }
     ).catch(err => console.error(err))

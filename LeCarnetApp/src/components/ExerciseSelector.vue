@@ -16,21 +16,20 @@
 <script setup>
     import { ref } from 'vue';
     import axios from 'axios';
-    import getExercisesNames from './ViewExercises/getExercisesNames/index.js'
-    import getMusclesTargeted from './ViewExercises/getMusclesTargeted/index.js'
+    import getExercisesNames from './ViewExercises/getExercisesNames/index.ts'
+    import getMusclesTargeted from './ViewExercises/getMusclesTargeted/index.ts'
     import addExercise from './SingleExerciseEditTools/AddExercise/index.js'
-
+    import { exercises_names, muscles_targeted } from '../store/index.ts';
     let access_token = localStorage.getItem("accesstoken")
     
     ////////////////////////
 
-    const muscles_targeted = ref([]) /// array to received all muscle groups from DB
-    getMusclesTargeted(access_token,muscles_targeted)  /// gets all muscle groups possible from DB
+    
+    getMusclesTargeted(access_token)  /// gets all muscle groups possible from DB
 
     ////////////////////////
 
-    const exercises_names = ref([]) /// array to received all exercises from DB
-    getExercisesNames(access_token,exercises_names)     /// gets all exercises possible from DB
+    getExercisesNames(access_token)     /// gets all exercises possible from DB
     
     ////////////////////////
     

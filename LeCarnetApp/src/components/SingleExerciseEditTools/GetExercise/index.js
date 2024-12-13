@@ -1,6 +1,6 @@
 import axios from 'axios'
 import dayjs from 'dayjs'
-import getExercisesNames from '../../ViewExercises/getExercisesNames/index.js'
+import getExercisesNames from '../../ViewExercises/getExercisesNames/index.ts'
 import {exercises_names} from '../../../store/index.ts'
 
 export default async function getExercise(id,access_token,exercise_data) {

@@ -11,8 +11,8 @@
                 <li v-if="date === result.date" class="flex justify-between">
                     {{ result.exercise_name }}
                     <div class="flex gap-2">
-                        <button v-if="editStatus" v-on:click="editButtonHandler(result.id)">edit</button>
-                        <button v-if="editStatus" v-on:click="deleteButtonHandler(result.id)">delete</button>
+                        <button v-if="editStatus" v-on:click="editButtonHandler(Number(result.id))">edit</button>
+                        <button v-if="editStatus" v-on:click="deleteButtonHandler(Number(result.id))">delete</button>
                     </div>
 
                 </li>
@@ -25,30 +25,32 @@
 
 </template>
 
-<script setup>
-import axios from 'axios'
-import { useAuth } from "../store/auth.js"
+<script setup lang="ts">
 import { ref } from 'vue';
-import { errorMessages } from 'vue/compiler-sfc'
-import getExercisesNames from './ViewExercises/getExercisesNames/index.js'
+import getExercisesNames from './ViewExercises/getExercisesNames/index.ts' 
 import getExercisesItems from './ViewExercises/getExercisesItems/index.js'
 import deleteExercise from './SingleExerciseEditTools/DeleteExercise/index.js'
-import dayjs from 'dayjs';
 import { items_dates } from '../store/index.ts'
+import { exercises_names } from '../store/index.ts';
 
-let access_token = localStorage.getItem("accesstoken") /// gets user token in LS
+let access_token : String | null = localStorage.getItem("accesstoken") /// gets user token in LS
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 const workoutDisplayButton = ref("Show your workouts")
 const showEditButton = ref(false)
 
-const results = ref([]) /// array to receive exercises saved by user
-const exercises_names = ref([])  /// array to receive all exercises possible (defined thru DB)
+interface Result {
+    id: PropertyKey,
+    date: string,
+    exercise_name: Number
+}
+const results = ref<Result[]>([]) /// array to receive exercises saved by user
 
 
 
-getExercisesNames(access_token, exercises_names) /// gets all exercises possibles
+
+getExercisesNames(access_token) /// gets all exercises possibles
 
 function showExercisesItems() {
     if (workoutDisplayButton.value == "Show your workouts") {   /// if user has clicked on Show WO button
@@ -56,7 +58,7 @@ function showExercisesItems() {
         workoutDisplayButton.value = "Hide your workouts"  // Change button content
         showEditButton.value = true /// Show edit button
     } else { /// if user has clicked on Hide WO button
-        results.value = 0   ///empty results array (allows data refresh if reclicked after)
+        results.value = []   ///empty results array (allows data refresh if reclicked after)
         workoutDisplayButton.value = "Show your workouts"  /// Change button content
         showEditButton.value = false /// Hide edit button
     }
@@ -64,7 +66,7 @@ function showExercisesItems() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-async function deleteButtonHandler (exercise_to_delete_id) {
+async function deleteButtonHandler (exercise_to_delete_id:number) {
     await deleteExercise(access_token, exercise_to_delete_id)
     await getExercisesItems(access_token, results, exercises_names)
 }
@@ -74,11 +76,11 @@ async function deleteButtonHandler (exercise_to_delete_id) {
 import { exercise_to_edit } from '../store/index.ts';
 import { useRouter } from 'vue-router';
 
+
 const router = useRouter()
 
 
-async function editButtonHandler (exercise_to_edit_id) {
-    console.log(exercise_to_edit_id)
+async function editButtonHandler (exercise_to_edit_id:number) {
     exercise_to_edit.value = exercise_to_edit_id
     router.push('/edit-your-exercise')
 }
