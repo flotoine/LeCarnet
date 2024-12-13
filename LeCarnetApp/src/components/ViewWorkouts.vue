@@ -7,12 +7,12 @@
     <section>
         <div v-for="date in items_dates" :key="date">
             <h4 class=" text-lg mb-4">{{ date }}</h4>
-            <div v-for="result in results" :key="result.id">
-                <li v-if="date === result.date" class="flex justify-between">
-                    {{ result.exercise_name }}
+            <div v-for="user_item in user_items" :key="user_item.id">
+                <li v-if="date === user_item.short_date" class="flex justify-between">
+                    {{ user_item.exercise_name }}
                     <div class="flex gap-2">
-                        <button v-if="editStatus" v-on:click="editButtonHandler(Number(result.id))">edit</button>
-                        <button v-if="editStatus" v-on:click="deleteButtonHandler(Number(result.id))">delete</button>
+                        <button v-if="editStatus" v-on:click="editButtonHandler(Number(user_item.id))">edit</button>
+                        <button v-if="editStatus" v-on:click="deleteButtonHandler(Number(user_item.id))">delete</button>
                     </div>
 
                 </li>
@@ -28,10 +28,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import getExercisesNames from './ViewExercises/getExercisesNames/index.ts' 
-import getExercisesItems from './ViewExercises/getExercisesItems/index.js'
-import deleteExercise from './SingleExerciseEditTools/DeleteExercise/index.js'
+import getExercisesItems from './ViewExercises/getExercisesItems/index.ts'
+import deleteExercise from './SingleExerciseEditTools/DeleteExercise/index.ts'
 import { items_dates } from '../store/index.ts'
-import { exercises_names } from '../store/index.ts';
+import { user_items } from '../store/index.ts';
+
 
 let access_token : String | null = localStorage.getItem("accesstoken") /// gets user token in LS
 
@@ -40,12 +41,7 @@ let access_token : String | null = localStorage.getItem("accesstoken") /// gets 
 const workoutDisplayButton = ref("Show your workouts")
 const showEditButton = ref(false)
 
-interface Result {
-    id: PropertyKey,
-    date: string,
-    exercise_name: Number
-}
-const results = ref<Result[]>([]) /// array to receive exercises saved by user
+
 
 
 
@@ -54,11 +50,11 @@ getExercisesNames(access_token) /// gets all exercises possibles
 
 function showExercisesItems() {
     if (workoutDisplayButton.value == "Show your workouts") {   /// if user has clicked on Show WO button
-        getExercisesItems(access_token, results, exercises_names)  /// Gets all exercises. Compare exercise id to exercises_names to print names instead of IDs
+        getExercisesItems(access_token)  /// Gets all exercises. Compare exercise id to exercises_names to print names instead of IDs
         workoutDisplayButton.value = "Hide your workouts"  // Change button content
         showEditButton.value = true /// Show edit button
     } else { /// if user has clicked on Hide WO button
-        results.value = []   ///empty results array (allows data refresh if reclicked after)
+        user_items.value = []   ///empty results array (allows data refresh if reclicked after)
         workoutDisplayButton.value = "Show your workouts"  /// Change button content
         showEditButton.value = false /// Hide edit button
     }
@@ -68,7 +64,7 @@ function showExercisesItems() {
 
 async function deleteButtonHandler (exercise_to_delete_id:number) {
     await deleteExercise(access_token, exercise_to_delete_id)
-    await getExercisesItems(access_token, results, exercises_names)
+    await getExercisesItems(access_token)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

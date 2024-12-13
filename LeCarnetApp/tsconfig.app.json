@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/components/getExercisesNames.ts", "src/components/SingleExerciseEditTools/GetExercise/index.js", "src/store/auth.js", "src/components/ViewExercises/getExercisesItems/index.js"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/components/getExercisesNames.ts", "src/components/SingleExerciseEditTools/GetExercise/index.ts", "src/store/auth.js", "src/components/ViewExercises/getExercisesItems/index.ts"]
 }

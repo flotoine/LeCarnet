@@ -18,7 +18,7 @@
     import axios from 'axios';
     import getExercisesNames from './ViewExercises/getExercisesNames/index.ts'
     import getMusclesTargeted from './ViewExercises/getMusclesTargeted/index.ts'
-    import addExercise from './SingleExerciseEditTools/AddExercise/index.js'
+    import addExercise from './SingleExerciseEditTools/AddExercise/index.ts'
     import { exercises_names, muscles_targeted } from '../store/index.ts';
     let access_token = localStorage.getItem("accesstoken")
     

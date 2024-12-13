@@ -9,7 +9,7 @@
 
 <script setup >
     import { reactive, ref } from 'vue';
-    import getExercise from './SingleExerciseEditTools/GetExercise/index.js'
+    import getExercise from './SingleExerciseEditTools/GetExercise/index.ts'
     import { exercise_to_edit } from '../store/index.ts';
     
     let access_token = localStorage.getItem("accesstoken")
@@ -19,7 +19,6 @@
         date:"dd/mm/yyyy"
     })
 
-    const response = ref ({})
 
     function getExerciseAtDisplay () {
         getExercise(exercise_to_edit.value,access_token,exercise_data)

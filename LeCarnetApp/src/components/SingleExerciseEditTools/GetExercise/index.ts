@@ -3,9 +3,9 @@ import dayjs from 'dayjs'
 import getExercisesNames from '../../ViewExercises/getExercisesNames/index.ts'
 import {exercises_names} from '../../../store/index.ts'
 
-export default async function getExercise(id,access_token,exercise_data) {
+export default async function getExercise(id:Number,access_token:String | null,exercise_data) {
     if (exercises_names.value.length === 0) {
-        getExercisesNames(access_token,exercises_names)
+        getExercisesNames(access_token)
     }
 
 
