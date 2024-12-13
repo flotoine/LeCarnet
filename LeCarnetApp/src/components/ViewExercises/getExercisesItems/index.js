@@ -1,6 +1,6 @@
 import axios from 'axios'
 import dayjs from 'dayjs';
-import { items_dates } from '../../../store/itemsDatesStore.js'
+import { items_dates } from '../../../store/index.ts'
 
 
 export default async function getExerciseItems(access_token,results,exercises_names) {

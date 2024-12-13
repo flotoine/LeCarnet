@@ -11,7 +11,7 @@
                 <li v-if="date === result.date" class="flex justify-between">
                     {{ result.exercise_name }}
                     <div class="flex gap-2">
-                        <button v-if="editStatus">edit</button>
+                        <button v-if="editStatus" v-on:click="editButtonHandler(result.id)">edit</button>
                         <button v-if="editStatus" v-on:click="deleteButtonHandler(result.id)">delete</button>
                     </div>
 
@@ -32,9 +32,9 @@ import { ref } from 'vue';
 import { errorMessages } from 'vue/compiler-sfc'
 import getExercisesNames from './ViewExercises/getExercisesNames/index.js'
 import getExercisesItems from './ViewExercises/getExercisesItems/index.js'
-import deleteExercise from './WorkoutEditor/DeleteExercise/index.js'
+import deleteExercise from './SingleExerciseEditTools/DeleteExercise/index.js'
 import dayjs from 'dayjs';
-import { items_dates } from '../store/itemsDatesStore.js'
+import { items_dates } from '../store/index.ts'
 
 let access_token = localStorage.getItem("accesstoken") /// gets user token in LS
 
@@ -67,6 +67,20 @@ function showExercisesItems() {
 async function deleteButtonHandler (exercise_to_delete_id) {
     await deleteExercise(access_token, exercise_to_delete_id)
     await getExercisesItems(access_token, results, exercises_names)
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+import { exercise_to_edit } from '../store/index.ts';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
+
+async function editButtonHandler (exercise_to_edit_id) {
+    console.log(exercise_to_edit_id)
+    exercise_to_edit.value = exercise_to_edit_id
+    router.push('/edit-your-exercise')
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

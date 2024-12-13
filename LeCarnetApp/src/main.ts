@@ -10,12 +10,15 @@ import Home from './components/Home.vue'
 // @ts-ignore
 import ViewWorkouts from './components/ViewWorkouts.vue'
 // @ts-ignore
-import WorkoutEditor from './components/WorkoutEditor.vue'
+import ExerciseSelector from './components/ExerciseSelector.vue'
+// @ts-ignore
+import ExerciseEditor from './components/ExerciseEditor.vue'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/workouts', component: ViewWorkouts },
-  { path: '/add-new-workout', component: WorkoutEditor }
+  { path: '/add-new-exercise', component: ExerciseSelector },
+  { path: '/edit-your-exercise', component: ExerciseEditor }
 ]
 
 const router = createRouter({

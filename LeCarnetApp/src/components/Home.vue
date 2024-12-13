@@ -6,7 +6,7 @@
             <button class="bg-slate-200 text-slate-900 p-2 rounded-xl dark:bg-slate-800 dark:text-slate-50" v-on:click="logout">Logout</button>
         </div>
         <div class="flex *:bg-slate-200 dark:*:bg-slate-800 dark:*:text-slate-200 *:rounded-xl *:aspect-square *:grow *:flex *:flex-col *:place-items-center *:justify-between gap-2 *:p-2">
-            <RouterLink to="/add-new-workout">
+            <RouterLink to="/add-new-exercise">
                 <p class="text-5xl relative top-5">+</p>
                 <p>add new exercise</p>
             </RouterLink>
@@ -140,7 +140,7 @@ async function registerUser(e) {
 
 /// Logout function and empty LoginStore to adapt app view
 
-import { isDrawerOpen } from '../store/menuDrawerStore.js'
+import { isDrawerOpen } from '../store/index.ts'
 
 async function logout() {
     let response = await axios.post("http://127.0.0.1:8055/auth/logout", { refresh_token: localStorage.getItem("refreshtoken") }

@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import { isDrawerOpen } from '../store/menuDrawerStore.js'
+import { isDrawerOpen } from '../store/index.ts'
 import { watch } from 'vue';
 import { useAuth } from '../store/auth.js'
 
@@ -25,7 +25,8 @@ watch( isDrawerOpen, (drawerStatus)=> {
         <div class="flex flex-col ">
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/workouts">Go to Workouts</RouterLink>
-            <RouterLink to="/add-new-workout">Add new workout</RouterLink>
+            <RouterLink to="/add-new-exercise">Select new exercise</RouterLink>
+            <RouterLink to="/edit-your-exercise">Edit an exercise</RouterLink> <!--to remove?-->
         </div>
     </nav>
 </template>

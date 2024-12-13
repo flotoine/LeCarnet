@@ -1,12 +1,11 @@
 <script setup>
 import Login from './components/Home.vue'
-import ViewExercises from './components/ViewWorkouts.vue';
-import WorkoutEditor from './components/WorkoutEditor.vue'
+
 import { ref } from 'vue';
 import { useAuth } from './store/auth.js'
 
 import MenuDrawer from './components/MenuDrawer.vue';
-import { isDrawerOpen } from './store/menuDrawerStore.js'
+import { isDrawerOpen } from './store/index.ts'
 import Menubars from './assets/menubars.svg'
 import { RouterLink } from 'vue-router';
 
