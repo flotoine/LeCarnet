@@ -1,3 +1,4 @@
+import { Dayjs } from "dayjs";
 import { ref } from "vue";
 import type { Ref } from 'vue'
 
@@ -18,10 +19,21 @@ export const muscles_targeted = ref([]) /// array to received all muscle groups 
 
 interface User_Item {
     id: PropertyKey;
-    short_date: Date | String | undefined;           // dd/mm/yyyy format
-    date_created: Date | String;   // long format
+    short_date: string | number | Date | Dayjs | null | undefined          // dd/mm/yyyy format
+    date_created: string | number | Date | Dayjs | null | undefined;   // long format
     exercise_name: String | undefined;
-    exercise_type: PropertyKey;
+    exercise_type: Number;
 }
 
 export const user_items = ref<User_Item[]>([])
+
+interface Exercise_Data_Types {
+    title:String | undefined,
+    date:string | number | Date | Dayjs | null | undefined
+}
+
+
+export const exercise_data = ref<Exercise_Data_Types>({
+    title:"Exercice title placeholder",
+    date:"dd/mm/yyyy"
+})

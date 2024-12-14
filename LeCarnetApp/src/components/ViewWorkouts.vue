@@ -5,7 +5,7 @@
         <button v-if="showEditButton" v-on:click="editModeSwitch">Edit mode</button>
     </div>
     <section>
-        <div v-for="date in items_dates" :key="date">
+        <div v-for="date in items_dates">
             <h4 class=" text-lg mb-4">{{ date }}</h4>
             <div v-for="user_item in user_items" :key="user_item.id">
                 <li v-if="date === user_item.short_date" class="flex justify-between">

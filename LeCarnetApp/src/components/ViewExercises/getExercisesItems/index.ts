@@ -1,5 +1,5 @@
 import axios from 'axios'
-import dayjs from 'dayjs';
+import  dayjs, { Dayjs } from 'dayjs';
 import { items_dates, exercises_names, user_items } from '../../../store/index.ts'
 
 
@@ -10,12 +10,13 @@ export default async function getExerciseItems(access_token: String | null) {
 
     let full_items_dates: Array<String> = []
     
+
     for (let i = 0; i < user_items.value.length;i++) {
-        let exercise_type: PropertyKey = user_items.value[i].exercise_type - 1
+        let exercise_type: PropertyKey = Number(user_items.value[i].exercise_type) - 1
         user_items.value[i].exercise_name = exercises_names.value[exercise_type].exercise_name // get the name related to the id
 
-        let date_created = user_items.value[i].date_created
-        let short_date: Date | String | undefined = dayjs(date_created).format('DD/MM/YYYY')
+        let date_created: string | number | Date | Dayjs | null | undefined = user_items.value[i].date_created
+        let short_date: string | number | Date | Dayjs | null | undefined = dayjs(date_created).format('DD/MM/YYYY')
         user_items.value[i].short_date = short_date
         full_items_dates.push(short_date)
     }
