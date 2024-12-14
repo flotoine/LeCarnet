@@ -11,11 +11,16 @@
     import { reactive, ref } from 'vue';
     import getExercise from './SingleExerciseEditTools/GetExercise/index.ts'
     import { exercise_to_edit, exercise_data } from '../store/index.ts';
+    import { watch } from 'vue';
     
     let access_token = localStorage.getItem("accesstoken")
 
-    function getExerciseAtDisplay () {
-        getExercise(exercise_to_edit.value,access_token,exercise_data)
+    watch(exercise_to_edit, (newExercise) => {
+        getExerciseAtDisplay()
+    })
+
+    async function getExerciseAtDisplay () {
+        await getExercise(exercise_to_edit.value,access_token,exercise_data)
     }
 
     getExerciseAtDisplay()

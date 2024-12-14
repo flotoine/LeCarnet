@@ -2,6 +2,10 @@
 import { RouterLink } from 'vue-router';
 import { isDrawerOpen } from '../store/index.ts'
 import { watch } from 'vue';
+import logout from './UserManagement/Logout/index.ts';
+//@ts-ignore
+import { useAuth } from '../store/auth.ts'
+
 
 
 /// Watch global ref status update to change menu drawer class to open/close it
@@ -23,6 +27,11 @@ watch( isDrawerOpen, (drawerStatus)=> {
     }
 })
 
+function logoutButtonHandler() {
+    const LoginStore : unknown = useAuth();
+    logout(LoginStore)
+}
+
 
 </script>
 
@@ -33,8 +42,8 @@ watch( isDrawerOpen, (drawerStatus)=> {
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/workouts">Go to Workouts</RouterLink>
             <RouterLink to="/add-new-exercise">Select new exercise</RouterLink>
-            <RouterLink to="/edit-your-exercise">Edit an exercise</RouterLink> <!--to remove?-->
         </div>
+        <button class="bg-slate-200 text-slate-900 p-2 rounded-xl dark:bg-slate-700 dark:text-slate-50" v-on:click="logoutButtonHandler">Logout</button>
     </nav>
 </template>
 

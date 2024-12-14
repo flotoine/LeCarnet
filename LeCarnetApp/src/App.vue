@@ -2,7 +2,7 @@
 import Login from './components/Home.vue'
 
 import { ref } from 'vue';
-import { useAuth } from './store/auth.js'
+import { useAuth } from './store/auth.ts'
 
 import MenuDrawer from './components/MenuDrawer.vue';
 import { isDrawerOpen } from './store/index.ts'

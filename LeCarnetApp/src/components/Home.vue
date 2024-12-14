@@ -57,7 +57,7 @@
 <script setup lang="ts">
 import axios from 'axios'
 //@ts-ignore
-import { useAuth } from '../store/auth.js'
+import { useAuth } from '../store/auth.ts'
 import { reactive } from 'vue'
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
