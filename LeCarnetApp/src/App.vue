@@ -1,7 +1,4 @@
-<script setup>
-import Login from './components/Home.vue'
-
-import { ref } from 'vue';
+<script setup lang="ts">
 import { useAuth } from './store/auth.ts'
 
 import MenuDrawer from './components/MenuDrawer.vue';
@@ -19,6 +16,7 @@ function toggleDrawer () {
     isDrawerOpen.value = false
   }
 }
+
 
 
 </script>

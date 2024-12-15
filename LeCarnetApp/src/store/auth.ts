@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 interface UserCredentials {
-    email:String | undefined | null,
-    password:String | undefined | null
+    email: String | undefined | null,
+    password: String | undefined | null,
 }
 
 export const useAuth = defineStore('auth', () => {

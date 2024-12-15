@@ -61,6 +61,7 @@ import { useAuth } from '../store/auth.ts'
 import { reactive } from 'vue'
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 /////////////////////////////////////////////////////////
 
@@ -82,6 +83,7 @@ function CloseRegisterUserForm() {
 
 const LoginStore = useAuth();
 
+
 const loginFormData = reactive({
     email: "",
     password: "",
@@ -94,6 +96,7 @@ async function login(e:Event) {
     ).then(
         response => {
             LoginStore.authenticate({
+                //@ts-ignore
                 loginFormData
             })
             localStorage.setItem("accesstoken", response.data.data.access_token);
@@ -143,6 +146,7 @@ async function registerUser(e:Event) {
 /// Logout function and empty LoginStore to adapt app view
 
 import { isDrawerOpen } from '../store/index.ts'
+const router = useRouter()
 
 async function logout() {
     await axios.post("http://127.0.0.1:8055/auth/logout", { refresh_token: localStorage.getItem("refreshtoken") }
@@ -151,6 +155,7 @@ async function logout() {
         console.log(res);
         LoginStore.user = null;
         if (isDrawerOpen.value === true ) {isDrawerOpen.value = false} // close drawer if open during logout
+        router.push('/')
     }
     ).catch(err => console.error(err))
 }

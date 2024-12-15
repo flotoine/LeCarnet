@@ -1,18 +1,12 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import './style.css'
-// @ts-ignore
 import App from './App.vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
-
-
 import Home from './components/Home.vue'
-
 import ViewWorkouts from './components/ViewWorkouts.vue'
-// @ts-ignore
 import ExerciseSelector from './components/ExerciseSelector.vue'
-// @ts-ignore
 import ExerciseEditor from './components/ExerciseEditor.vue'
 
 const routes = [

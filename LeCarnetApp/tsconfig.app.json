@@ -8,6 +8,8 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny" :false,
+    "allowJs": true,
 
     /* Bundler mode */
     "moduleResolution": "Bundler",

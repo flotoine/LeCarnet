@@ -11,6 +11,6 @@ export default {
       'sans': ['Play', 'sans-serif']
     }
   },
-  plugins: [],
+  plugins: []
 }
 

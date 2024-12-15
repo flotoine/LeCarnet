@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { isDrawerOpen } from '../store/index.ts'
 import { watch } from 'vue';
-import logout from './UserManagement/Logout/index.ts';
-//@ts-ignore
 import { useAuth } from '../store/auth.ts'
-
+import axios from 'axios';
 
 
 /// Watch global ref status update to change menu drawer class to open/close it
@@ -27,10 +25,26 @@ watch( isDrawerOpen, (drawerStatus)=> {
     }
 })
 
+
+const router = useRouter();
+const LoginStore = useAuth();
+
 function logoutButtonHandler() {
-    const LoginStore : unknown = useAuth();
-    logout(LoginStore)
+    async function logout() {
+    await axios.post("http://127.0.0.1:8055/auth/logout", { refresh_token: localStorage.getItem("refreshtoken") }
+    ).then(res => {
+        console.log(res)
+        router.push('/')
+        LoginStore.user = null;
+        if (isDrawerOpen.value === true ) {isDrawerOpen.value = false} // close drawer if open during logout
+    }
+    ).catch(err => console.error(err))
 }
+    logout()
+
+}
+
+
 
 
 </script>
