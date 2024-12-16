@@ -1,30 +1,52 @@
 <template>
     <div>
-        <h2>Your exercise - {{exercise_data.title}}</h2>
-        <p>date : {{ exercise_data.date }}</p>
-        <button>Submit</button>
+        <h2>Your exercise - {{exerciseData.title}}</h2>
+        <p>date : {{ exerciseData.date }}</p>
         <br>
     </div>
+    <div>
+        <h3>Add reps</h3>
+        <label for="reps">Reps: </label>
+        <input id="reps" name="reps" class="dark:text-slate-950" type="number">
+        <br>
+        <label for="weight">Weight: </label>
+        <input id="weight" name="weight" class="dark:text-slate-950" type="number">
+        <br>
+    </div>
+    <div>
+        <h3>Your reps</h3>
+        <ul>
+            <li>12reps @ 10.5kg</li>
+            <li>10reps @ 10.5kg</li>
+            <li>10reps @ 9.5kg</li>
+        </ul>
+        <button @click="addSetHandler" class= "bg-red-600">Ajouter</button>
+    </div>
+
 </template>
 
 <script setup >
     import { reactive, ref } from 'vue';
     import getExercise from './SingleExerciseEditTools/GetExercise/index.ts'
-    import { exercise_to_edit, exercise_data } from '../store/index.ts';
+    import { exerciseToEdit, exerciseData } from '../store/index.ts';
     import { watch } from 'vue';
+    import addSet from './SingleExerciseEditTools/AddSet/index.ts';
     
-    let access_token = localStorage.getItem("accesstoken")
+    let accessToken = localStorage.getItem("accessToken")
 
-    watch(exercise_to_edit, (newExercise) => {
+    watch(exerciseToEdit, (newExercise) => {
         getExerciseAtDisplay()
     })
 
     async function getExerciseAtDisplay () {
-        await getExercise(exercise_to_edit.value,access_token,exercise_data)
+        await getExercise(exerciseToEdit.value,accessToken,exerciseData)
     }
 
     getExerciseAtDisplay()
 
+    async function addSetHandler() {
+        addSet(accessToken)
+    }
 
     
 </script>

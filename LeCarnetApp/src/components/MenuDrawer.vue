@@ -27,15 +27,15 @@ watch( isDrawerOpen, (drawerStatus)=> {
 
 
 const router = useRouter();
-const LoginStore = useAuth();
+const loginStore = useAuth();
 
 function logoutButtonHandler() {
     async function logout() {
-    await axios.post("http://127.0.0.1:8055/auth/logout", { refresh_token: localStorage.getItem("refreshtoken") }
+    await axios.post("http://127.0.0.1:8055/auth/logout", { refreshToken: localStorage.getItem("refreshToken") }
     ).then(res => {
         console.log(res)
         router.push('/')
-        LoginStore.user = null;
+        loginStore.user = null;
         if (isDrawerOpen.value === true ) {isDrawerOpen.value = false} // close drawer if open during logout
     }
     ).catch(err => console.error(err))

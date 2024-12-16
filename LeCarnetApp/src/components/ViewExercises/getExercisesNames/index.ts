@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { exercises_names } from '../../../store/index.ts';
+import { exercisesNames } from '../../../store/index.ts';
 
-export default async function getExercisesNames(access_token: String | null) {
-    await axios.get(`http://127.0.0.1:8055/items/exercises_list/`, { headers: {"Authorization" : `Bearer ${access_token}`} })
-    .then(res=> exercises_names.value = res.data.data)
+export default async function getExercisesNames(accessToken: String | null) {
+    await axios.get(`http://127.0.0.1:8055/items/exercises_list/`, { headers: {"Authorization" : `Bearer ${accessToken}`} })
+    .then(res=> exercisesNames.value = res.data.data)
     .catch(err => console.error(err))
 }

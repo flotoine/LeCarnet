@@ -1,6 +1,6 @@
 <template>
     <!-- View if user in LoginStore -- Beware if token key not refreshed --->
-    <div v-if="LoginStore.user !== null">
+    <div v-if="loginStore.user !== null">
         <div class="flex  place-content-between items-center mb-6">
             <h2 class="text-xl" v-if="username !== null">Welcome {{ username }}</h2>
             <button class="bg-slate-200 text-slate-900 p-2 rounded-xl dark:bg-slate-800 dark:text-slate-50" v-on:click="logout">Logout</button>
@@ -22,18 +22,18 @@
         <h2 class="mb-4 text-xl">Create your account</h2>
         <form class="flex flex-col gap-1 [&>*]:rounded-xl [&>*]:p-2" id="registerUser" @submit="registerUser" >
             <label id="email" name="email">Email</label>
-            <input class="bg-slate-200" type="email" id="email" name="email" placeholder="Your@email.com" v-model="registerFormData.email"
+            <input  type="email" id="email" name="email" placeholder="Your@email.com" v-model="registerFormData.email"
                 required>
             <label class="mt-4" id="password" name="password">Password</label>
-            <input class="bg-slate-200" type="password" id="password" name="password" placeholder="YourPassword"
+            <input  type="password" id="password" name="password" placeholder="YourPassword"
                 v-model="registerFormData.password" required>
             <label class="mt-4" id="firstname" name="firstname">First Name</label>
-            <input class="bg-slate-200" type="firstname" id="firstname" name="firstname" placeholder="First Name"
+            <input  type="firstname" id="firstname" name="firstname" placeholder="First Name"
                 v-model="registerFormData.first_name" required>
             <label class="mt-4" id="lastname" name="lastname">Last Name</label>
-            <input class="bg-slate-200" type="lastname" id="lastname" name="lastname" placeholder="Last Name"
+            <input type="lastname" id="lastname" name="lastname" placeholder="Last Name"
                 v-model="registerFormData.last_name" required>
-            <input class="bg-slate-800 text-slate-200 my-4" type="submit" value="Create an account" />
+            <button class="bg-slate-800 text-slate-200 my-4">Create an account</button>
             <button class="bg-slate-300 text-slate-900" v-on:click="CloseRegisterUserForm">Back to login</button>
         </form>
 
@@ -41,15 +41,15 @@
     <!-- Default login form displayed at start --->
     <div v-else>
         <h2 class="mb-6 text-xl">Please login to access your workouts</h2>
-        <form class="flex flex-col gap-1 [&>*]:rounded-xl [&>*]:p-2" id="login" @submit="login">
+        <form class="flex flex-col gap-1 *:rounded-xl *:p-2 " id="login" @submit="login">
             <label id="email" name="email">Email</label>
-            <input class="bg-slate-200" type="email" id="email" name="email" placeholder="Your@email.com" v-model="loginFormData.email"
+            <input type="email" id="email" name="email" placeholder="Your@email.com" v-model="loginFormData.email"
                 required>
             <label class="mt-4" id="password" name="password">Password</label>
-            <input class="bg-slate-200" type="password" id="password" name="password" placeholder="YourPassword"
+            <input type="password" id="password" name="password" placeholder="YourPassword"
                 v-model="loginFormData.password" required>
-            <input class="bg-slate-800 text-slate-200 my-4" type="submit" value="Connect" />
-            <button class="bg-slate-300 text-slate-900" v-on:click="OpenRegisterUserForm">Create an account</button>
+            <button class="bg-slate-800 text-slate-100 dark:bg-slate-600 my-4">Connect</button>
+            <button class="bg-slate-300 text-slate-900 dark:bg-slate-900 dark:text-slate-100" v-on:click="OpenRegisterUserForm">Create an account</button>
         </form>
     </div>
 </template>
@@ -81,7 +81,7 @@ function CloseRegisterUserForm() {
 
 // Log in function
 
-const LoginStore = useAuth();
+const loginStore = useAuth();
 
 
 const loginFormData = reactive({
@@ -95,12 +95,12 @@ async function login(e:Event) {
         loginFormData
     ).then(
         response => {
-            LoginStore.authenticate({
+            loginStore.authenticate({
                 //@ts-ignore
                 loginFormData
             })
-            localStorage.setItem("accesstoken", response.data.data.access_token);
-            localStorage.setItem("refreshtoken", response.data.data.refresh_token);
+            localStorage.setItem("accessToken", response.data.data.access_token);
+            localStorage.setItem("refreshToken", response.data.data.refresh_token);
             getUser()
         }
     ).catch(error => { console.error(error), alert('Wrong credentials. Please check email and password') })
@@ -111,10 +111,10 @@ async function login(e:Event) {
 
 const username = ref("username")  /// defines name in welcoming message // Called after successfull login
 
-if( LoginStore.user !== null ) { getUser()}
+if( loginStore.user !== null ) { getUser()}
 
 async function getUser() {
-    await axios.get("http://127.0.0.1:8055/users/me", { headers: { "Authorization": `Bearer ${localStorage.getItem("accesstoken")}` } })
+    await axios.get("http://127.0.0.1:8055/users/me", { headers: { "Authorization": `Bearer ${localStorage.getItem("accessToken")}` } })
         .then(res => username.value = res.data.data.first_name//username.value = res.data.data.first_name)
         ).catch(error => { console.error(error) })
     return { username }
@@ -143,17 +143,17 @@ async function registerUser(e:Event) {
 
 /////////////////////////////////////////////////////////
 
-/// Logout function and empty LoginStore to adapt app view
+/// Logout function and empty loginStore to adapt app view
 
 import { isDrawerOpen } from '../store/index.ts'
 const router = useRouter()
 
 async function logout() {
-    await axios.post("http://127.0.0.1:8055/auth/logout", { refresh_token: localStorage.getItem("refreshtoken") }
+    await axios.post("http://127.0.0.1:8055/auth/logout", { refreshToken: localStorage.getItem("refreshToken") }
 
     ).then(res => {
         console.log(res);
-        LoginStore.user = null;
+        loginStore.user = null;
         if (isDrawerOpen.value === true ) {isDrawerOpen.value = false} // close drawer if open during logout
         router.push('/')
     }
@@ -166,5 +166,13 @@ async function logout() {
 
 
 <style>
+    @tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+@layer components {
+  input {
+    @apply bg-slate-200 dark:bg-slate-700;
+  }
+}
 </style>
