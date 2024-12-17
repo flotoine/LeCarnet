@@ -15,10 +15,10 @@
     </div>
     <div>
         <h3>Your reps</h3>
-        <ul>
-            <li>n reps @ x kg</li>
-            <li>n reps @ x kg</li>
-            <li>n reps @ x kg</li>
+        <ul v-for="repData in exerciseRepData" :key="repData.id">
+                <li>
+                    {{ repData.reps }} reps @ {{ repData.weight }} kg
+                </li>
         </ul>
         <button @click="addSetHandler" class= "bg-red-600">Ajouter</button>
     </div>
@@ -29,7 +29,7 @@
     import { reactive, ref } from 'vue';
     import getExercise from './SingleExerciseEditTools/GetExercise/index.ts'
     import getSets from './ViewExercises/getSets/index.ts'
-    import { exerciseToEdit, exerciseData } from '../store/index.ts';
+    import { exerciseToEdit, exerciseData, exerciseRepData } from '../store/index.ts';
     import { watch } from 'vue';
     import addSet from './SingleExerciseEditTools/AddSet/index.ts';
     import axios from 'axios';
@@ -50,11 +50,14 @@
     }
 
     getExerciseAtDisplay()
+    getSets(accessToken)
 
     async function addSetHandler() {
         await addSet(accessToken,repDataToAdd) /// add non-valid numbers error mgmt (DB rules)
+        await getSets(accessToken)
     }
 
+    
     
     
     

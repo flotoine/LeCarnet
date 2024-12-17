@@ -38,6 +38,4 @@ export const exerciseData = ref<ExerciseDataTypes>({
     date:"dd/mm/yyyy"
 })
 
-export const exerciseRepData = ref({
-    
-})
+export const exerciseRepData = ref([])
