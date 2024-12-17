@@ -1,23 +1,25 @@
 <template>
-    <h2 class="text-2xl mb-4">Your training journal</h2>
-    <div class="*:bg-slate-200 dark:*:bg-slate-800 *:rounded-lg *:p-2 flex gap-2 mb-4">
-        <button v-on:click="editModeSwitch">Edit mode</button>
+    
+    <div class="flex justify-between">
+        <h2 class="text-2xl mb-4">Your training journal</h2>
+        <button class="bg-red-600 rounded-lg text-slate-50 p-2 mb-4" v-on:click="deleteModeSwitch">Delete mode</button>
     </div>
     <section>
-        <div v-for="date in itemsDates" class="bg-slate-200 dark:bg-slate-800 rounded-lg mb-2 p-2">
-            <h4 class="text-lg">Your training on {{ date }}</h4>
-            <div v-for="item in userItems" :key="item.id">
-                <li v-if="date === item.short_date" class="flex justify-between gap-2">
-                    <p class="truncate">
-                        {{ item.exercise_name }}
-                    </p>
-                    <div class="flex gap-2">
-                        <button v-if="editStatus" v-on:click="editButtonHandler(Number(item.id))">edit</button>
-                        <button v-if="editStatus" v-on:click="deleteButtonHandler(Number(item.id))">delete</button>
-                    </div>
-
-                </li>
+        <div v-for="date in itemsDates" class="bg-slate-200 dark:bg-slate-800 rounded-lg mb-2">
+            <div class="bg-slate-300 dark:bg-slate-700 text-center rounded-t-lg">
+                <h4 class="text-xl py-2">{{ date }}</h4>
             </div>
+            <div class="p-2">
+                <div v-for="item in userItems" :key="item.id">
+                    <li v-if="date === item.short_date" class="flex gap-2">
+                        <button class="text-red-600 font-extrabold" v-if="deleteStatus" v-on:click="deleteButtonHandler(Number(item.id))">X</button>
+                        <button class="truncate" v-on:click="editButtonHandler(Number(item.id))">
+                            {{ item.exercise_name }} 
+                        </button>
+                    </li>
+                </div>
+            </div>
+
         </div>
 
 
@@ -28,31 +30,21 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import getExercisesNames from './ViewExercises/getExercisesNames/index.ts' 
 import getExercisesItems from './ViewExercises/getExercisesItems/index.ts'
 import deleteExercise from './SingleExerciseEditTools/DeleteExercise/index.ts'
 import { itemsDates, userItems } from '../store/index.ts'
 
-
-let accessToken : String | null = localStorage.getItem("accessToken") /// gets user token in LS
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-showExercisesItemsHandler()
-
-async function showExercisesItemsHandler() {
-    await getExercisesItems(accessToken)
-}
-
-getExercisesNames(accessToken) /// gets all exercises possibles
-
-
+let accessToken: String | null = localStorage.getItem("accessToken") /// gets user token in LS
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-async function deleteButtonHandler (exerciseToDeleteId:number) {
+getExercisesItems(accessToken) /// may need to put getExercisesNames again
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+async function deleteButtonHandler(exerciseToDeleteId: number) {
     await deleteExercise(accessToken, exerciseToDeleteId)
-    await getExercisesItems(accessToken)  //bug: no exercises shown after one deletion
+    await getExercisesItems(accessToken)  
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,19 +56,19 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 
 
-async function editButtonHandler (exerciseToEditId:number) {
+async function editButtonHandler(exerciseToEditId: number) {
     exerciseToEdit.value = exerciseToEditId
     router.push('/edit-your-exercise')
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-const editStatus = ref(false)
+const deleteStatus = ref(false)
 
-function editModeSwitch() {
-    if (editStatus.value === true) {
-        editStatus.value = false
-    } else { editStatus.value = true }
+function deleteModeSwitch() {
+    if (deleteStatus.value === true) {
+        deleteStatus.value = false
+    } else { deleteStatus.value = true }
 }
 
 </script>

@@ -31,7 +31,7 @@ const loginStore = useAuth();
 
 function logoutButtonHandler() {
     async function logout() {
-    await axios.post("http://127.0.0.1:8055/auth/logout", { refreshToken: localStorage.getItem("refreshToken") }
+    await axios.post("http://127.0.0.1:8055/auth/logout", { "refresh_token": localStorage.getItem("refreshToken") }
     ).then(res => {
         console.log(res)
         router.push('/')
