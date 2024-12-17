@@ -7,18 +7,18 @@
     <div>
         <h3>Add reps</h3>
         <label for="reps">Reps: </label>
-        <input id="reps" name="reps" class="dark:text-slate-950" type="number">
+        <input id="reps" name="reps" class="dark:text-slate-950" type="number" v-model="repDataToAdd.reps">
         <br>
         <label for="weight">Weight: </label>
-        <input id="weight" name="weight" class="dark:text-slate-950" type="number">
+        <input id="weight" name="weight" class="dark:text-slate-950" type="number" v-model="repDataToAdd.weight">
         <br>
     </div>
     <div>
         <h3>Your reps</h3>
         <ul>
-            <li>12reps @ 10.5kg</li>
-            <li>10reps @ 10.5kg</li>
-            <li>10reps @ 9.5kg</li>
+            <li>n reps @ x kg</li>
+            <li>n reps @ x kg</li>
+            <li>n reps @ x kg</li>
         </ul>
         <button @click="addSetHandler" class= "bg-red-600">Ajouter</button>
     </div>
@@ -28,11 +28,18 @@
 <script setup >
     import { reactive, ref } from 'vue';
     import getExercise from './SingleExerciseEditTools/GetExercise/index.ts'
+    import getSets from './ViewExercises/getSets/index.ts'
     import { exerciseToEdit, exerciseData } from '../store/index.ts';
     import { watch } from 'vue';
     import addSet from './SingleExerciseEditTools/AddSet/index.ts';
-    
+    import axios from 'axios';
+
     let accessToken = localStorage.getItem("accessToken")
+
+    const repDataToAdd = reactive ({
+        reps:0,
+        weight:0
+    })
 
     watch(exerciseToEdit, (newExercise) => {
         getExerciseAtDisplay()
@@ -45,8 +52,10 @@
     getExerciseAtDisplay()
 
     async function addSetHandler() {
-        addSet(accessToken)
+        await addSet(accessToken,repDataToAdd) /// add non-valid numbers error mgmt (DB rules)
     }
 
+    
+    
     
 </script>

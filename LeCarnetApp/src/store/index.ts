@@ -37,3 +37,7 @@ export const exerciseData = ref<ExerciseDataTypes>({
     title:"Exercice title placeholder",
     date:"dd/mm/yyyy"
 })
+
+export const exerciseRepData = ref({
+    
+})
