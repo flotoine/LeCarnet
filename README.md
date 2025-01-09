@@ -7,3 +7,7 @@ Then from LeCarnetApp folder
 `npm install`
 Then
 `npm run dev`
+
+Demo LeCarnet login:
+login: michel@muscu.fr
+password: root
