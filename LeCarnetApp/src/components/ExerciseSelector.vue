@@ -7,7 +7,7 @@
     </div>
     <h3 v-if="exercisesSelected.length !== 0" class="text-xl my-4">Select your exercise</h3>
     <div class="*:bg-slate-200 dark:*:bg-slate-800 *:rounded-lg *:p-2 flex flex-wrap *:grow gap-2">
-        <button v-for="exercise in exercisesSelected" :key="exercise.id" v-on:click="selectExercise(exercise.id)">
+        <button v-for="exercise in exercisesSelected" :key="exercise.id" v-on:click="selectExercise(exercise.id)"> <!---ne pas hésiter à passer tout l'exercise puis trie dans la fonction, par ex pour des fonctions futures, ça prend pas plus de perfs-->
             {{ exercise.exercise_name }}
         </button>
     </div>
@@ -23,6 +23,8 @@
     import { useRouter } from 'vue-router';
     let accessToken = localStorage.getItem("accessToken")
     
+
+    ///peutre un focus muscle selectionne
     ////////////////////////
 
     
@@ -40,6 +42,8 @@
               /// changes muscle targeted when specific button clicked
               exercisesSelected.value = exercisesNames.value.filter((ex) => ex.muscle_target === muscleId);
     }
+
+    ///possiblement remplaçable par une computed
 
     const router = useRouter()
     

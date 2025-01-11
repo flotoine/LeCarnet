@@ -40,7 +40,8 @@
     </div>
     <!-- Default login form displayed at start --->
     <div v-else>
-        <h2 class="mb-6 text-xl">Please login to access your workouts</h2>
+        <p>LeCarnet (french for notebook) is a simple web app aiming to track your fitness journey. You can save each rep and browse through your progress.<br>Next features could include views of your stats, achievement system and sharing with you friends.</p>
+        <h2 class="my-6 text-xl">Please login to access your workouts</h2>
         <form class="flex flex-col gap-1 *:rounded-xl *:p-2 " id="login" @submit="login">
             <label id="email" name="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Your@email.com" v-model="loginFormData.email"
@@ -78,8 +79,15 @@ function CloseRegisterUserForm() {
 }
 
 /////////////////////////////////////////////////////////
-
+//notes : faire un composant par besoin (là y en a trois: piloté par le router /signup /login etc) voir Navigation Guards  vue3 pour condition
+///creer des pages src/pages et dans chaque page tu peux mettre un ou pls composants
 // Log in function
+
+/// utilise les props
+/// v-model pour autre chose ? lien avec les props
+// autre mais plus tard: vois les composables
+/// tanstack query pour gérer des états par exemple de chargement, ça peut etre sympa ça sur le projet, gestion erreurs tout ça
+/// muscles selectionnés en radio possible
 
 const loginStore = useAuth();
 

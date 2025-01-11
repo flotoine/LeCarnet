@@ -2,16 +2,13 @@
     <div>
         <h2>Your exercise - {{exerciseData.title}}</h2>
         <p>date : {{ exerciseData.date }}</p>
-        <br>
     </div>
     <div>
         <h3>Add reps</h3>
         <label for="reps">Reps: </label>
         <input id="reps" name="reps" class="dark:text-slate-950" type="number" v-model="repDataToAdd.reps">
-        <br>
         <label for="weight">Weight: </label>
         <input id="weight" name="weight" class="dark:text-slate-950" type="number" v-model="repDataToAdd.weight">
-        <br>
     </div>
     <div>
         <h3>Your reps</h3>
@@ -57,7 +54,6 @@
         await getSets(accessToken)
     }
 
-    
     
     
     

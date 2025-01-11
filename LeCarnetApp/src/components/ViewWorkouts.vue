@@ -7,7 +7,7 @@
     <section>
         <div v-for="date in itemsDates" class="bg-slate-200 dark:bg-slate-800 rounded-lg mb-2">
             <div class="bg-slate-300 dark:bg-slate-700 text-center rounded-t-lg">
-                <h4 class="text-xl py-2">{{ date }}</h4>
+                <h4 @click="dateClickHandler(date)" class="text-xl py-2"><RouterLink to="/wod">{{ date }}</RouterLink></h4>
             </div>
             <div class="p-2">
                 <div v-for="item in userItems" :key="item.id">
@@ -33,6 +33,7 @@ import { ref } from 'vue';
 import getExercisesItems from './ViewExercises/getExercisesItems/index.ts'
 import deleteExercise from './SingleExerciseEditTools/DeleteExercise/index.ts'
 import { itemsDates, userItems } from '../store/index.ts'
+import { RouterLink } from 'vue-router';
 
 let accessToken: String | null = localStorage.getItem("accessToken") /// gets user token in LS
 
@@ -69,6 +70,12 @@ function deleteModeSwitch() {
     if (deleteStatus.value === true) {
         deleteStatus.value = false
     } else { deleteStatus.value = true }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+function dateClickHandler(selectedDate) {
+    userItems.value = userItems.value.filter((item) => item.short_date === selectedDate)
 }
 
 </script>
