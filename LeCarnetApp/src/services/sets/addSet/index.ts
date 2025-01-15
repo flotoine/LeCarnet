@@ -1,16 +1,13 @@
-import axios from 'axios'
+import api from '../../api';
 import { exerciseToEdit } from '../../../store';
 
 
-export default async function addSet(accessToken:String,repDataToAdd) {
-    await axios.post("http://127.0.0.1:8055/items/exercise_set/",
+export default async function addSet(repDataToAdd) {
+    await api.post("/items/exercise_set/",
         {
             "exercise_id": exerciseToEdit.value,
             "reps": repDataToAdd.reps,
             "weight" : repDataToAdd.weight
-        },
-        { 
-            headers: {"Authorization" : `Bearer ${accessToken}`}
         }
     ) 
     .then(res => {

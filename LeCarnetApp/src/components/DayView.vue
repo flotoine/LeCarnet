@@ -10,11 +10,10 @@
 </template>
 
 <script setup lang="ts">
-import getSets from './ViewExercises/getSets';
 import { userItems, exerciseRepData, exerciseToEdit } from '../store';
 import { watch } from 'vue';
+import { API } from '../services';
 
-let accessToken = localStorage.getItem("accessToken")
 
 /// get all data --> to display
 
@@ -23,7 +22,7 @@ watch (userItems, (newItems) =>
         for (let i = 0; i < userItems.value.length;i++) {
             console.log(newItems[i].id)
             exerciseToEdit.value = Number(newItems[i].id)
-            getSets (String(accessToken))
+            API.sets.getSets()
         }
     }
 ) 

@@ -24,12 +24,9 @@
 
 <script setup >
     import { reactive, ref } from 'vue';
-    import getExercise from './SingleExerciseEditTools/GetExercise/index.ts'
-    import getSets from './ViewExercises/getSets/index.ts'
     import { exerciseToEdit, exerciseData, exerciseRepData } from '../store/index.ts';
     import { watch } from 'vue';
-    import addSet from './SingleExerciseEditTools/AddSet/index.ts';
-    import axios from 'axios';
+    import { API } from '../services/index.ts';
 
     let accessToken = localStorage.getItem("accessToken")
 
@@ -38,20 +35,23 @@
         weight:0
     })
 
-    watch(exerciseToEdit, (newExercise) => {
-        getExerciseAtDisplay()
+    try {
+        getExerciseAtDisplay(exerciseToEdit.value)
+    } catch {}
+
+    watch(exerciseToEdit, (newExercise) => {    /// reload, useful when adding new exercise to avoid displaying previous exercise
+        getExerciseAtDisplay(exerciseToEdit.value)
     })
 
-    async function getExerciseAtDisplay () {
-        await getExercise(exerciseToEdit.value,accessToken,exerciseData)
+    async function getExerciseAtDisplay (exerciseId) {
+        API.exercise.getExercise(exerciseId)
     }
 
-    getExerciseAtDisplay()
-    getSets(accessToken)
+    API.sets.getSets()
 
-    async function addSetHandler() {
-        await addSet(accessToken,repDataToAdd) /// add non-valid numbers error mgmt (DB rules)
-        await getSets(accessToken)
+    function addSetHandler() {
+        API.sets.addSet(repDataToAdd)
+        API.sets.getSets()
     }
 
     

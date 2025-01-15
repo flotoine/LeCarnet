@@ -1,15 +1,9 @@
-import axios from 'axios'
+import api from '../../api.ts'
 import dayjs from 'dayjs'
-import getExercisesNames from '../../ViewExercises/getExercisesNames/index.ts'
 import {exercisesNames, exerciseData} from '../../../store/index.ts'
 
-export default async function getExercise(exerciseId:Number,accessToken:String | null) {
-    if (exercisesNames.value.length === 0) {
-        getExercisesNames(accessToken)
-    }
-
-
-    await axios.get(`http://127.0.0.1:8055/items/exercise_item/${exerciseId}`, { headers: {"Authorization" : `Bearer ${accessToken}`} }) 
+export default async function getExercise(exerciseId:Number) {
+    await api.get(`/items/exercise_item/${exerciseId}`) 
     .then(function(res) 
         {   
             const exerciseType = res.data.data.exercise_type

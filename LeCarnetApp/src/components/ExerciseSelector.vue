@@ -16,23 +16,21 @@
 <script setup>
     import { ref } from 'vue';
     import axios from 'axios';
-    import getExercisesNames from './ViewExercises/getExercisesNames/index.ts'
-    import getMusclesTargeted from './ViewExercises/getMusclesTargeted/index.ts'
-    import addExercise from './SingleExerciseEditTools/AddExercise/index.ts'
     import { exercisesNames, musclesTargeted } from '../store/index.ts';
     import { useRouter } from 'vue-router';
+
+    import { API } from '../services/index.ts';
+
     let accessToken = localStorage.getItem("accessToken")
-    
 
     ///peutre un focus muscle selectionne
     ////////////////////////
 
-    
-    getMusclesTargeted(accessToken)  /// gets all muscle groups possible from DB
+    API.app.getMusclesTargeted() /// gets all muscle groups possible from DB
 
     ////////////////////////
 
-    getExercisesNames(accessToken)     /// gets all exercises possible from DB
+    API.app.getExercisesNames()   /// gets all exercises possible from DB
     
     ////////////////////////
     
@@ -46,9 +44,12 @@
     ///possiblement remplaçable par une computed
 
     const router = useRouter()
+
+
+
     
     function selectExercise (exerciseId) { /// on click on specific exercise, adds it to user list of exercise thru DB
-        addExercise(accessToken,exerciseId)
+        API.exercise.addExercise(exerciseId)
         exercisesSelected.value=[]
         
         router.push('/edit-your-exercise')

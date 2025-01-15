@@ -30,22 +30,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import getExercisesItems from './ViewExercises/getExercisesItems/index.ts'
-import deleteExercise from './SingleExerciseEditTools/DeleteExercise/index.ts'
 import { itemsDates, userItems } from '../store/index.ts'
 import { RouterLink } from 'vue-router';
 
-let accessToken: String | null = localStorage.getItem("accessToken") /// gets user token in LS
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-getExercisesItems(accessToken) /// may need to put getExercisesNames again
+import { API } from '../services/index.ts';
+
+API.exercise.getAllExercises()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 async function deleteButtonHandler(exerciseToDeleteId: number) {
-    await deleteExercise(accessToken, exerciseToDeleteId)
-    await getExercisesItems(accessToken)  
+    API.exercise.deleteExercise(exerciseToDeleteId)
+    API.exercise.getAllExercises() ///fix no refresh after deletion
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

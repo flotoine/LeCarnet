@@ -15,6 +15,7 @@
                 <p>Open your journal</p>
             </RouterLink>
         </div>
+        <button @click="testFunction">Test</button>
         
     </div>
 
@@ -35,6 +36,12 @@ import { RouterLink } from 'vue-router';
 import { useRouter } from 'vue-router';
 
 
+import { API } from '../services/index.ts';
+
+async function testFunction () {
+    await API.exercise.getAllExercises()
+}
+
 /////////////////////////////////////////////////////////
 //notes : faire un composant par besoin (là y en a trois: piloté par le router /signup /login etc) voir Navigation Guards  vue3 pour condition
 ///creer des pages src/pages et dans chaque page tu peux mettre un ou pls composants
@@ -53,7 +60,7 @@ const loginStore = useAuth();
 
 const username = ref("username")  /// defines name in welcoming message // Called after successfull login
 
-if( loginStore.user !== null ) { getUser()}
+if( loginStore.user !== null ) { getUser(), API.app.getExercisesNames()}
 
 async function getUser() {
     await axios.get("http://127.0.0.1:8055/users/me", { headers: { "Authorization": `Bearer ${localStorage.getItem("accessToken")}` } })
