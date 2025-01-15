@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//used for exercise, app & sets services
 
 const API_URL = 'http://127.0.0.1:8055/';
 
@@ -19,7 +20,5 @@ api.interceptors.request.use(
     Promise.reject(error);
   }
 );
-
-
 
 export default api;

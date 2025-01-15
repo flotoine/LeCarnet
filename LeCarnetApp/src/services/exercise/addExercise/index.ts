@@ -1,4 +1,4 @@
-import api from "../../api";
+import api from '../../api.ts';
 import { exerciseToEdit } from '../../../store/index.ts'
 
 export default async function addExercise(exerciseType:Number) {

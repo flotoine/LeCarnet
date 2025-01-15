@@ -1,27 +1,18 @@
 <script setup lang="ts">
 import { RouterLink, useRouter } from 'vue-router';
-import { isDrawerOpen } from '../store/index.ts'
 import { computed } from 'vue';
 import { useAuth } from '../store/auth.ts'
-import axios from 'axios';
+import { API } from '../services/index.ts';
 
-const router = useRouter();
+
+
 
 const loginStore = useAuth();
-///axios non configuré ? avec url de base et tout et tout voir : The Axios Instance
-function logoutButtonHandler() {
-    async function logout() {  // problème aussi, composant dupliqué sur home.vue, bref découpe mieux
-        await axios.post("http://127.0.0.1:8055/auth/logout", { "refresh_token": localStorage.getItem("refreshToken") }
-        ).then(res => {
-            console.log(res)
-            router.push('/')
-            loginStore.user = null;
-            if (isDrawerOpen.value === true) { isDrawerOpen.value = false } // close drawer if open during logout
-        }
-        ).catch(err => console.error(err))
-    }
-    logout()
+const router = useRouter();
 
+function logoutButtonHandler() {
+    API.user.logout()
+    router.push('/')
 }
 
 interface Props {

@@ -36,7 +36,7 @@
     })
 
     try {
-        getExerciseAtDisplay(exerciseToEdit.value)
+        getExerciseAtDisplay(exerciseToEdit.value)  /// to replace with computed?
     } catch {}
 
     watch(exerciseToEdit, (newExercise) => {    /// reload, useful when adding new exercise to avoid displaying previous exercise

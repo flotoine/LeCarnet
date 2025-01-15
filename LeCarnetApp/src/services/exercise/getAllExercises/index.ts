@@ -1,14 +1,16 @@
 import api from "../../api";
 import { itemsDates, exercisesNames, userItems } from '../../../store/index.ts'
 import dayjs, { Dayjs } from "dayjs";
+import { API } from "../../index.ts";
 
 export default async function getAllExercises() {
     await api.get("/items/exercise_item/")
     .then(res => {
             userItems.value = res.data.data;
             let full_items_dates: Array<String> = [] ///little flash --> probs refresh names each time
-        
-            
+            if(exercisesNames.value.length === 0) {
+                API.app.getExercisesNames().then(getAllExercises)
+            } else {
                 for (let i = 0; i < userItems.value.length;i++) {
                     let exercise_type: PropertyKey = Number(userItems.value[i].exercise_type) - 1
                     userItems.value[i].exercise_name = exercisesNames.value[exercise_type].exercise_name // get the name related to the id
@@ -20,7 +22,7 @@ export default async function getAllExercises() {
                 }
                 itemsDates.value = [...new Set(full_items_dates)].reverse();
                 return {userItems}
-            
+                }
     
             
             }

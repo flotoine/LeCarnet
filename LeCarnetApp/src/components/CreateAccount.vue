@@ -32,7 +32,7 @@ const registerFormData = reactive({
     last_name: ""
 })
 
-async function registerUser(e:Event) {
+async function registerUser(e:Event) {  /// to put in services
 
     e.preventDefault();
     await axios.post("http://127.0.0.1:8055/users/register/", registerFormData)
