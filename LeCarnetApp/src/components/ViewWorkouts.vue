@@ -42,8 +42,7 @@ API.exercise.getAllExercises()
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 async function deleteButtonHandler(exerciseToDeleteId: number) {
-    API.exercise.deleteExercise(exerciseToDeleteId)
-    API.exercise.getAllExercises() ///fix no refresh after deletion
+    API.exercise.deleteExercise(exerciseToDeleteId).then(() => API.exercise.getAllExercises())
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
