@@ -28,7 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import axios from 'axios'
 //@ts-ignore
 import { useAuth } from '../store/auth.ts'
 import { ref } from 'vue';
@@ -48,23 +47,13 @@ const loginStore = useAuth();
 /////////////////////////////////////////////////////////
 
 const username = ref("username")  /// defines name in welcoming message // Called after successfull login
+API.user.getUser(username)
 
-if( loginStore.user !== null ) { getUser(), API.app.getExercisesNames()}
-
-async function getUser() {  /// put in API
-    await axios.get("http://127.0.0.1:8055/users/me", { headers: { "Authorization": `Bearer ${localStorage.getItem("accessToken")}` } })
-        .then(res => username.value = res.data.data.first_name//username.value = res.data.data.first_name)
-        ).catch(error => { console.error(error) })
-    return { username }
-}
+API.app.getExercisesNames()
 
 /////////////////////////////////////////////////////////
 
-
-/// Logout function and empty loginStore to adapt app view
-
-
-function logoutButtonHandler () {
+function logoutButtonHandler () { /// Logout function and empty loginStore to adapt app view
     API.user.logout()
 }
 

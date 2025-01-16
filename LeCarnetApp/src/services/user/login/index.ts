@@ -1,4 +1,4 @@
-import userApi from "../userapi";
+import userApi from "../userApi.ts";
 import { useAuth } from "../../../store/auth";
 
 export default async function login(loginFormData) {

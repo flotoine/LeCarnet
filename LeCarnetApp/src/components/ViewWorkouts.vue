@@ -65,7 +65,7 @@ async function editButtonHandler(exerciseToEditId: number) {
 const deleteStatus = ref(false)
 
 function deleteModeSwitch() {
-    if (deleteStatus.value === true) {
+    if (deleteStatus.value) {
         deleteStatus.value = false
     } else { deleteStatus.value = true }
 }

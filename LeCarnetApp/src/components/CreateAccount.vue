@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="mb-4 text-xl">Create your account</h2>
-        <form class="flex flex-col gap-1 *:rounded-xl *:p-2" id="registerUser" @submit="registerUser">
+        <form class="flex flex-col gap-1 *:rounded-xl *:p-2" id="registerUser" @submit.prevent="CreateAccountFormHandler">
             <label id="email" name="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Your@email.com" v-model="registerFormData.email"
                 required>
@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { reactive } from 'vue';
-import axios from 'axios';
+import { API } from '../services';
 
 const registerFormData = reactive({
     email: "",
@@ -32,13 +32,9 @@ const registerFormData = reactive({
     last_name: ""
 })
 
-async function registerUser(e:Event) {  /// to put in services
-
-    e.preventDefault();
-    await axios.post("http://127.0.0.1:8055/users/register/", registerFormData)
-        .then(res => {console.log(res), alert('Successfull registration ! You can process to login')}) // should return to classic login view
-        .catch(err => console.error(err))
-
+function CreateAccountFormHandler() {
+    API.user.createAccount(registerFormData)
 }
+
 
 </script>
