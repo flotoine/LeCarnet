@@ -1,8 +1,8 @@
 <template>
     
-    <div class="flex justify-between">
-        <h2 class="text-2xl mb-4">Your training journal</h2>
-        <button class="bg-red-600 rounded-lg text-slate-50 p-2 mb-4" v-on:click="deleteModeSwitch">Delete mode</button>
+    <div class="flex justify-between gap-2 *:mb-4">
+        <h2 class="text-2xl">Your training journal</h2>
+        <button class="bg-red-600 rounded-lg text-slate-50 p-1 " v-on:click="deleteModeSwitch">Delete mode</button>
     </div>
     <section>
         <div v-for="date in itemsDates" class="bg-slate-200 dark:bg-slate-800 rounded-lg mb-2">

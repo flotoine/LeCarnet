@@ -28,7 +28,6 @@
 </template>
 
 <script setup lang="ts">
-//@ts-ignore
 import { useAuth } from '../store/auth.ts'
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
@@ -47,6 +46,7 @@ const loginStore = useAuth();
 /////////////////////////////////////////////////////////
 
 const username = ref("username")  /// defines name in welcoming message // Called after successfull login
+
 API.user.getUser(username)
 
 API.app.getExercisesNames()
